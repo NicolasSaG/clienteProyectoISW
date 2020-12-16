@@ -1,23 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Suspense, lazy } from "react";
+import './App.scss';
+import { Switch, Route, Redirect, BrowserRouter } from "react-router-dom";
+import PageLoading from './components/layout/PageLoading';
+
+
+const MainPage = lazy(() => import('./components/MainPage'));
+const Login = lazy(() => import('./components/acceso/login/Login'));
+const Registro = lazy(() => import('./components/acceso/registro/Registro'));
+const Navbar = lazy(() => import('./components/layout/NavBar'));
+const NotFound = lazy(() => import('./components/layout/404'));
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <Suspense fallback={<PageLoading />}>
+          <Navbar />
+          <Switch>
+            <Route exact path="/" component={MainPage} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/registro" component={Registro} />
+            {/* Routes ...... */}
+            <Route exact path="/404" component={NotFound} />
+            <Redirect to="/404" />
+          </Switch>
+        </Suspense>
+      </BrowserRouter>
     </div>
   );
 }
