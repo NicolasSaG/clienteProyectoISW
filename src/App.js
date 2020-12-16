@@ -9,7 +9,7 @@ const Login = lazy(() => import('./components/acceso/login/Login'));
 const Registro = lazy(() => import('./components/acceso/registro/Registro'));
 const Navbar = lazy(() => import('./components/layout/NavBar'));
 const NotFound = lazy(() => import('./components/layout/404'));
-
+const MapaArbolado  = lazy(() => import('./components/mapa/MapaArbolado'));
 
 function App() {
   return (
@@ -21,6 +21,7 @@ function App() {
             <Route exact path="/" component={MainPage} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/registro" component={Registro} />
+            <Route exact path="/mapa" component={MapaArbolado} />
             {/* Routes ...... */}
             <Route exact path="/404" component={NotFound} />
             <Redirect to="/404" />
