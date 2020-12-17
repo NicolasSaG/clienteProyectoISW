@@ -1,6 +1,16 @@
 import React from 'react';
+import { Button, Col, Row, Form } from 'react-bootstrap';
+import { useForm } from 'react-hook-form';
+import './../../../login.css';
 
 const Registro = () => {
+    const { handleSubmit, register, errors } = useForm();
+
+    const onSubmit = values => { // values es un objeto que posee todos los valores del formulario que tenga un 'name' asociado
+        alert(values.correo)
+        alert(values.password)
+    }
+
     return (
         <div>
            
