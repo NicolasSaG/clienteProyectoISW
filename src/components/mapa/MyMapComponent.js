@@ -1,16 +1,19 @@
-import React from "react"
+import React, { Fragment } from "react"
 import {
     GoogleMap,
     useLoadScript,
-    Marker
+    Marker,
+    Polygon
 } from "@react-google-maps/api";
 
 import { GOOGLE_MAPS_API_KEY } from "./../../config/constants";
 import { Spinner } from "react-bootstrap";
+import Swal from 'sweetalert2';
 
 const options = {
     disableDefaultUI: true,
     zoomControl: true,
+    gestureHandling: 'greedy'
 };
 const mapContainerStyle = {
     height: "100%",
@@ -19,7 +22,7 @@ const mapContainerStyle = {
 
 const libraries = ["places"];
 
-const MyMapComponent = (props) => {
+const MyMapComponent = ({ items, areas, center }) => {
     const { isLoaded, loadError } = useLoadScript({
         googleMapsApiKey: GOOGLE_MAPS_API_KEY,
         libraries,
@@ -29,35 +32,57 @@ const MyMapComponent = (props) => {
         mapRef.current = map;
     }, []);
 
-    if (loadError) return "Error. Revisa tu conexion y vuelve a intenarlo";
-    if (!isLoaded) return <Spinner/>;
+    if (loadError) return "Error. Revisa tu conexion y vuelve a intentarlo";
+    if (!isLoaded) return <Spinner />;
     return (
         <div style={{ height: `100%` }} >
             <div style={{ height: `700px` }} >
                 <GoogleMap
                     id="map"
                     mapContainerStyle={mapContainerStyle}
-                    zoom={12}
-                    center={{ lat: props.latitude, lng: props.longitude }}
+                    zoom={13}
+                    center={{ lat: center.latitude, lng: center.longitude }}
                     options={options}
                     // onClick={onMapClick}
                     onLoad={onMapLoad}
                 >
-                    <Marker
-                        position={{ lat: props.latitude, lng: props.longitude }}
-                        onClick={() => {
-                            
-                        }}
-                        icon={{
-                            url: `/assets/imagenes/marker.png`,
-                            origin: new window.google.maps.Point(0, 0),
-                            anchor: new window.google.maps.Point(50, 50),
-                            scaledSize: new window.google.maps.Size(50, 50),
-                        }}
-                    />
+                    {
+                        items ? items.map((i, index) => {
+                            return <Fragment key={index}>
+                                <Marker
+                                    position={{ lat: i.latitude, lng: i.longitude }}
+                                    onClick={() => {
+                                        Swal.fire('Haz dado click a un árbol', 'Arbol con coordenadas: ' + i.latitude + "," + i.longitude, 'success')
+                                    }}
+                                    icon={{
+                                        url: `/assets/imagenes/marker.png`,
+                                        origin: new window.google.maps.Point(0, 0),
+                                        anchor: new window.google.maps.Point(50, 50),
+                                        scaledSize: new window.google.maps.Size(50, 50),
+                                    }}
+                                />
+                            </Fragment>
+                        }) : ""
+                    }
+                    {
+                        areas ? areas.map((i, index) => {
+                            return <Fragment key={index}>
+                                <Polygon
+                                    paths={i.coordinates}
+                                    onClick={() => {
+                                        Swal.fire('Haz dado click a un área', 'Area con coordenadas: ' + i.coordinates.map((c) => c.lat + "," + c.lng), 'success')
+                                    }}
+                                    options={{
+                                        strokeColor: '#6CB315',
+                                    }}
+                                />
+                            </Fragment>
+                        }) : ""
+                    }
+
                 </GoogleMap>
             </div>
         </div>
     )
 }
-export default MyMapComponent;
+export default React.memo(MyMapComponent);
