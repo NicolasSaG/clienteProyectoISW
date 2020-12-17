@@ -7,7 +7,7 @@ const Login = () => {
 
     // Funcion que se ejecuta al pasar todas las validaciones y submit
     const onSubmit = values => { // values es un objeto que posee todos los valores del formulario que tenga un 'name' asociado
-        alert(values.correo)
+        alert(values.email)
         alert(values.password)
     }
 
