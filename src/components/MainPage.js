@@ -24,6 +24,7 @@ const MainPage = () => {
                     <Button onClick={()=>history.push("/login")} variant="primary">Login</Button>  &nbsp;
                     <Button onClick={()=>history.push("/registro")} variant="secondary">Registro</Button>  &nbsp;
                     <Button onClick={()=>history.push("/mapa")} variant="success">Mapa</Button>
+                    <Button onClick={()=>history.push("/registroArbol")} variant="secondary">Registrar arbol</Button>
                 </p>
             </Jumbotron>
             <Container>

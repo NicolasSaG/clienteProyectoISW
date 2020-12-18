@@ -7,6 +7,7 @@ import PageLoading from './components/layout/PageLoading';
 const MainPage = lazy(() => import('./components/MainPage'));
 const Login = lazy(() => import('./components/acceso/login/Login'));
 const Registro = lazy(() => import('./components/acceso/registro/Registro'));
+const RegistroArbol = lazy(() => import('./components/arboles/RegistroArbol'));
 const Navbar = lazy(() => import('./components/layout/NavBar'));
 const Footer = lazy(() => import('./components/layout/Footer'));
 const NotFound = lazy(() => import('./components/layout/404'));
@@ -23,6 +24,7 @@ function App() {
             <Route exact path="/login" component={Login} />
             <Route exact path="/registro" component={Registro} />
             <Route exact path="/mapa" component={MapaArbolado} />
+            <Route exact path="/registroArbol" component={RegistroArbol} />
             {/* Routes ...... */}
             <Route exact path="/404" component={NotFound} />
             <Redirect to="/404" />
