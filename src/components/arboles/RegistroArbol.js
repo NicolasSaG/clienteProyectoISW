@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Col, Form, Row, Button } from "react-bootstrap";
+import MapaRegistroArbol from "./MapaRegistroArbol";
 
 //mapa, al dar click en el mapa obtenemos coords, direccion
 //diametro, altura, estado del arbol mal, neutro bien
@@ -13,6 +14,10 @@ const RegistroArbol = () => {
     // values es un objeto que posee todos los valores del formulario que tenga un 'name' asociado
     alert(values.diametro);
     alert(values.password);
+  };
+
+  const sendCoordsHandler = (coordsObtenidas) => {
+    alert(coordsObtenidas);
   };
 
   return (
@@ -88,6 +93,9 @@ const RegistroArbol = () => {
 
       <div>
         <h2>Mapa:</h2>
+        <MapaRegistroArbol
+          center={{ latitude: 19.42303354379363, longitude: -99.1631714061342 }}
+        ></MapaRegistroArbol>
         <button
           onClick={() => setValue("delegacion", "miguel hidalgo")}
         ></button>
