@@ -16,8 +16,12 @@ const RegistroArbol = () => {
     alert(values.password);
   };
 
-  const sendCoordsHandler = (coordsObtenidas) => {
-    alert(coordsObtenidas);
+  const getChildData = (projectId) => {
+    alert(
+      `Recibidos datos componente del mapa: ${projectId.latLng.toJSON().lat}, ${
+        projectId.latLng.toJSON().lng
+      } `
+    );
   };
 
   return (
@@ -95,6 +99,7 @@ const RegistroArbol = () => {
         <h2>Mapa:</h2>
         <MapaRegistroArbol
           center={{ latitude: 19.42303354379363, longitude: -99.1631714061342 }}
+          getCoords={getChildData}
         ></MapaRegistroArbol>
         <button
           onClick={() => setValue("delegacion", "miguel hidalgo")}

@@ -1,11 +1,6 @@
-import React, { Fragment } from "react";
-import {
-  GoogleMap,
-  useLoadScript,
-  Marker,
-  Polygon,
-} from "@react-google-maps/api";
-
+import React from "react";
+import axios from "axios";
+import { GoogleMap, useLoadScript } from "@react-google-maps/api";
 import { GOOGLE_MAPS_API_KEY } from "./../../config/constants";
 import { Spinner } from "react-bootstrap";
 
@@ -20,16 +15,9 @@ const mapContainerStyle = {
   width: "100%",
 };
 
-const verDatos = (values) => {
-  // values es un objeto que posee todos los valores del formulario que tenga un 'name' asociado
-
-  console.log(values.latLng.toJSON().lat);
-  console.log(values.latLng.toJSON().lng);
-};
-
 const libraries = ["places"];
 
-const MapaRegistroArbol = ({ center }) => {
+const MapaRegistroArbol = ({ center, getCoords }) => {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: GOOGLE_MAPS_API_KEY,
     libraries,
@@ -38,6 +26,24 @@ const MapaRegistroArbol = ({ center }) => {
   const onMapLoad = React.useCallback((map) => {
     mapRef.current = map;
   }, []);
+
+  const verDatos = (values) => {
+    // values es un objeto que posee todos los valores del formulario que tenga un 'name' asociado
+    console.log(values.latLng.lat());
+    console.log(values.latLng.lng());
+    // const geodecode =
+    //   "https://maps.googleapis.com/maps/api/geocode/json?latlng";
+    // axios
+    //   .get(
+    //     `${geodecode}=${values.latLng.lat()},${values.latLng.lng()}&key=${GOOGLE_MAPS_API_KEY}`
+    //   )
+    //   .then((res) => {
+    //     const dir = res.data;
+    //     console.log(dir);
+    //   });
+
+    getCoords(values);
+  };
 
   if (loadError) return "Error. Revisa tu conexion y vuelve a intentarlo";
   if (!isLoaded) return <Spinner />;
