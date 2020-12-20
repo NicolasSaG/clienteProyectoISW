@@ -7,13 +7,13 @@ import {
 } from "@react-google-maps/api";
 
 import { GOOGLE_MAPS_API_KEY } from "./../../config/constants";
-import { Spinner } from "react-bootstrap";
 import Swal from 'sweetalert2';
+import PageLoading from "../layout/PageLoading";
 
 const options = {
     disableDefaultUI: true,
     zoomControl: true,
-    gestureHandling: 'greedy'
+    // gestureHandling: 'greedy'
 };
 const mapContainerStyle = {
     height: "100%",
@@ -33,7 +33,7 @@ const MyMapComponent = ({ items, areas, center }) => {
     }, []);
 
     if (loadError) return "Error. Revisa tu conexion y vuelve a intentarlo";
-    if (!isLoaded) return <Spinner />;
+    if (!isLoaded) return <PageLoading/>;
     return (
         <div style={{ height: `100%` }} >
             <div style={{ height: `700px` }} >
@@ -50,9 +50,9 @@ const MyMapComponent = ({ items, areas, center }) => {
                         items ? items.map((i, index) => {
                             return <Fragment key={index}>
                                 <Marker
-                                    position={{ lat: i.latitude, lng: i.longitude }}
+                                    position={{ lat: i.geometry.coordinates[1], lng: i.geometry.coordinates[0] }}
                                     onClick={() => {
-                                        Swal.fire('Haz dado click a un árbol', 'Arbol con coordenadas: ' + i.latitude + "," + i.longitude, 'success')
+                                        Swal.fire('Haz dado click a un árbol', 'Arbol con coordenadas: ' + i.geometry.coordinates[1] + "," + i.geometry.coordinates[0], 'success')
                                     }}
                                     icon={{
                                         url: `/assets/imagenes/marker.png`,

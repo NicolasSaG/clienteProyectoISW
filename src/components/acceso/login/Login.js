@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Col, Row, Form } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import './../../../login.css';
 
@@ -12,37 +12,51 @@ const Login = () => {
     }
 
     return (
-      <div class="form-bg">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-offset-3 col-md-9">
-                <form class="form-horizontal">
-                    <span class="heading">Iniciar Sesión </span>
-                    <div class="form-group">
-                        <input type="email" class="form-control" id="inputEmail3" placeholder="Nombre de Usuario o Correo Electrónico"></input>
-                        <i class="fa fa-user"></i>
-                        
+        <div className="form-bg">
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-offset-3 col-md-9">
+                        <Form onSubmit={handleSubmit(onSubmit)} className="form-horizontal">
+                            <span className="heading">Iniciar Sesión </span>
+                            <div className="form-group">
+                                <input ref={register({
+                                    required: true
+                                })} type="email" className="form-control" id="inputEmail3" placeholder="Nombre de Usuario o Correo Electrónico"></input>
+                                <i className="fa fa-user"></i>
+                                {
+                                    errors.nombre && errors.nombre.type === "required" &&
+                                    <Form.Text className="text-danger">
+                                        Ingrese su nombre
+                                                </Form.Text>
+                                }
+                            </div>
+                            <div className="form-group help">
+                                <input ref={register({
+                                    required: true
+                                })} type="password" className="form-control" id="inputPassword3" placeholder="Contraseña"></input>
+                                <i className="fa fa-lock"/>
+                                <p className="fa fa-question-circle"></p>
+                                {
+                                    errors.nombre && errors.nombre.type === "required" &&
+                                    <Form.Text className="text-danger">
+                                        Ingrese su nombre
+                                                </Form.Text>
+                                }
+                            </div>
+                            <div className="form-group">
+                                <div className="main-checkbox">
+                                    <input type="checkbox" value="None" id="checkbox1" name="check"></input>
+                                    <label for="checkbox1"></label>
+
+                                </div>
+                                <span className="text">Recuerdame</span>
+                                <button type="submit" className="btn btn-default">Acceder</button>
+                            </div>
+                        </Form>
                     </div>
-                    <div class="form-group help">
-                        <input type="password" class="form-control" id="inputPassword3" placeholder="Contraseña"></input>
-                        <i class="fa fa-lock"></i>
-                        <a href="#" class="fa fa-question-circle"></a>
-                        
-                    </div>
-                    <div class="form-group">
-                        <div class="main-checkbox">
-                            <input type="checkbox" value="None" id="checkbox1" name="check"></input>
-                            <label for="checkbox1"></label>
-                            
-                        </div>
-                        <span class="text">Recuerdame</span>
-                        <button type="submit" class="btn btn-default">Acceder</button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
-    </div>
-</div>
     );
 }
 
