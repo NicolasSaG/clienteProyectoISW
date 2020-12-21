@@ -2,13 +2,26 @@ import React from 'react';
 import { Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import './../../../login.css';
+import axios from 'axios';
+import { SERVER_NAME } from './../../../config/constants';
 
 const Login = () => {
     const { handleSubmit, register, errors } = useForm();
 
-    const onSubmit = values => { // values es un objeto que posee todos los valores del formulario que tenga un 'name' asociado
-        alert(values.correo)
-        alert(values.password)
+    const onSubmit = values => {
+        console.log(values);
+        axios.post(`${SERVER_NAME}/login`, {
+            params: {
+                username: 'correo',
+                password: ' password'
+            }
+        }).then((response) => {
+            console.log(response)
+            if (response.status === 200) {
+                console.log("OK");
+            }
+
+        })
     }
 
     return (
@@ -21,7 +34,7 @@ const Login = () => {
                             <div className="form-group">
                                 <input ref={register({
                                     required: true
-                                })} type="email" className="form-control" id="inputEmail3" placeholder="Nombre de Usuario o Correo Electrónico"></input>
+                                })} name='correo' type="email" className="form-control" id="correo" placeholder="Nombre de Usuario o Correo Electrónico"></input>
                                 <i className="fa fa-user"></i>
                                 {
                                     errors.nombre && errors.nombre.type === "required" &&
@@ -33,8 +46,8 @@ const Login = () => {
                             <div className="form-group help">
                                 <input ref={register({
                                     required: true
-                                })} type="password" className="form-control" id="inputPassword3" placeholder="Contraseña"></input>
-                                <i className="fa fa-lock"/>
+                                })} name='password' type="password" className="form-control" id="password" placeholder="Contraseña"></input>
+                                <i className="fa fa-lock" />
                                 <p className="fa fa-question-circle"></p>
                                 {
                                     errors.nombre && errors.nombre.type === "required" &&
@@ -44,12 +57,6 @@ const Login = () => {
                                 }
                             </div>
                             <div className="form-group">
-                                <div className="main-checkbox">
-                                    <input type="checkbox" value="None" id="checkbox1" name="check"></input>
-                                    <label for="checkbox1"></label>
-
-                                </div>
-                                <span className="text">Recuerdame</span>
                                 <button type="submit" className="btn btn-default">Acceder</button>
                             </div>
                         </Form>
