@@ -31,18 +31,30 @@ const MapaRegistroArbol = ({ center, getCoords }) => {
     // values es un objeto que posee todos los valores del formulario que tenga un 'name' asociado
     console.log(values.latLng.lat());
     console.log(values.latLng.lng());
-    // const geodecode =
-    //   "https://maps.googleapis.com/maps/api/geocode/json?latlng";
-    // axios
-    //   .get(
-    //     `${geodecode}=${values.latLng.lat()},${values.latLng.lng()}&key=${GOOGLE_MAPS_API_KEY}`
-    //   )
-    //   .then((res) => {
-    //     const dir = res.data;
-    //     console.log(dir);
-    //   });
+    let datosObtenidos = {};
+    datosObtenidos.lat = values.latLng.lat();
+    datosObtenidos.lng = values.latLng.lng();
 
-    getCoords(values);
+    const geodecode =
+      "https://maps.googleapis.com/maps/api/geocode/json?latlng";
+    axios
+      .get(
+        `${geodecode}=${values.latLng.lat()},${values.latLng.lng()}&key=${GOOGLE_MAPS_API_KEY}`
+      )
+      .then((res) => {
+        const dir = res.data;
+        const realDir = dir.results[0];
+        datosObtenidos.direccionFormateada = realDir.formatted_address;
+        realDir.address_components.forEach((element) => {
+          if (element.types.includes("street_number")) {
+            datosObtenidos.numeroCalle = element.long_name;
+          }
+          if (element.types.includes("route")) {
+            datosObtenidos.calle = element.long_name;
+          }
+        });
+        getCoords(datosObtenidos);
+      });
   };
 
   if (loadError) return "Error. Revisa tu conexion y vuelve a intentarlo";

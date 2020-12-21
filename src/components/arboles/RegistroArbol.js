@@ -12,22 +12,78 @@ const RegistroArbol = () => {
   // Funcion que se ejecuta al pasar todas las validaciones y submit
   const onSubmit = (values) => {
     // values es un objeto que posee todos los valores del formulario que tenga un 'name' asociado
-    alert(values.diametro);
-    alert(values.password);
+    console.log(values);
   };
 
-  const getChildData = (projectId) => {
-    alert(
-      `Recibidos datos componente del mapa: ${projectId.latLng.toJSON().lat}, ${
-        projectId.latLng.toJSON().lng
-      } `
-    );
+  const getChildData = (data) => {
+    setValue("direccion", data.direccionFormateada);
+    setValue("coordLat", data.lat);
+    setValue("coordLg", data.lng);
   };
 
   return (
     <div align='center'>
       <h3>Registrar arbol</h3>
       <Form onSubmit={handleSubmit(onSubmit)}>
+        <Row className='justify-content-md-center'>
+          <Col sm lg='6'>
+            <Form.Group controlId='formBasicCoordLat'>
+              <Form.Control
+                name='coordLat'
+                ref={register({
+                  required: true,
+                })}
+                type='text'
+                placeholder='latitud'
+              />
+              {errors.coordLat && errors.coordLat.type === "required" && (
+                <Form.Text className='text-danger'>
+                  No se ha seleccionado un árbol en el mapa
+                </Form.Text>
+              )}
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row className='justify-content-md-center'>
+          <Col sm lg='6'>
+            <Form.Group controlId='formBasicCoordLg'>
+              <Form.Control
+                name='coordLg'
+                ref={register({
+                  required: true,
+                })}
+                type='text'
+                placeholder='longitud'
+              />
+              {errors.coordLg && errors.coordLg.type === "required" && (
+                <Form.Text className='text-danger'>
+                  No se ha seleccionado un árbol en el mapa
+                </Form.Text>
+              )}
+            </Form.Group>
+          </Col>
+        </Row>
+
+        <Row className='justify-content-md-center'>
+          <Col sm lg='6'>
+            <Form.Group controlId='formBasicDireccion'>
+              <Form.Control
+                name='direccion'
+                ref={register({
+                  required: true,
+                })}
+                type='text'
+                placeholder='direccion'
+              />
+              {errors.direccion && errors.direccion.type === "required" && (
+                <Form.Text className='text-danger'>
+                  No se seleccionó una dirección
+                </Form.Text>
+              )}
+            </Form.Group>
+          </Col>
+        </Row>
+
         <Row className='justify-content-md-center'>
           <Col sm lg='6'>
             <Form.Group controlId='formBasicDiametro'>
@@ -41,7 +97,7 @@ const RegistroArbol = () => {
               />
               {errors.diametro && errors.diametro.type === "required" && (
                 <Form.Text className='text-danger'>
-                  Ingresa el diametro aproximado del arbol
+                  Ingresa el diámetro aproximado del árbol
                 </Form.Text>
               )}
             </Form.Group>
@@ -60,36 +116,11 @@ const RegistroArbol = () => {
               />
               {errors.altura && errors.altura.type === "required" && (
                 <Form.Text className='text-danger'>
-                  Ingresa la altura aproximado del arbol
+                  Ingresa la altura aproximado del árbol
                 </Form.Text>
               )}
             </Form.Group>
           </Col>
-        </Row>
-        <Row className='justify-content-md-center'>
-          <Col></Col>
-        </Row>
-        <Row className='justify-content-md-center'>
-          <Col sm lg='6'>
-            <Form.Group controlId='formBasicDelegacion'>
-              <Form.Control
-                name='delegacion'
-                ref={register({
-                  required: true,
-                })}
-                type='text'
-                placeholder='delegacion'
-              />
-              {errors.altura && errors.delegacion.type === "required" && (
-                <Form.Text className='text-danger'>
-                  Ingresa la delegacion donde se encuentra el arbol
-                </Form.Text>
-              )}
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row className='justify-content-md-center'>
-          <Col></Col>
         </Row>
 
         <Button type='submit'>Registrar arbol</Button>
