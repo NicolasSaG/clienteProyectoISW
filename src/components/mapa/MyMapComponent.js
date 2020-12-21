@@ -2,13 +2,13 @@ import React, { Fragment } from "react"
 import {
     GoogleMap,
     useLoadScript,
-    Marker,
     Polygon
 } from "@react-google-maps/api";
 
 import { GOOGLE_MAPS_API_KEY } from "./../../config/constants";
 import Swal from 'sweetalert2';
 import PageLoading from "../layout/PageLoading";
+import MarkerComponent from "./MarkerComponent";
 
 const options = {
     disableDefaultUI: true,
@@ -33,7 +33,7 @@ const MyMapComponent = ({ items, areas, center }) => {
     }, []);
 
     if (loadError) return "Error. Revisa tu conexion y vuelve a intentarlo";
-    if (!isLoaded) return <PageLoading/>;
+    if (!isLoaded) return <PageLoading />;
     return (
         <div style={{ height: `100%` }} >
             <div style={{ height: `700px` }} >
@@ -49,18 +49,14 @@ const MyMapComponent = ({ items, areas, center }) => {
                     {
                         items ? items.map((i, index) => {
                             return <Fragment key={index}>
-                                <Marker
-                                    position={{ lat: i.geometry.coordinates[1], lng: i.geometry.coordinates[0] }}
-                                    onClick={() => {
-                                        Swal.fire('Haz dado click a un árbol', 'Arbol con coordenadas: ' + i.geometry.coordinates[1] + "," + i.geometry.coordinates[0], 'success')
-                                    }}
+                                <MarkerComponent  position={{ lat: i.geometry.coordinates[1], lng: i.geometry.coordinates[0] }} id={i._id}
                                     icon={{
                                         url: `/assets/imagenes/marker.png`,
                                         origin: new window.google.maps.Point(0, 0),
                                         anchor: new window.google.maps.Point(50, 50),
                                         scaledSize: new window.google.maps.Size(50, 50),
-                                    }}
-                                />
+                                    }}/>
+                               
                             </Fragment>
                         }) : ""
                     }
