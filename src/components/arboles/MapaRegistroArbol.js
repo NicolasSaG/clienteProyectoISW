@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import { GoogleMap, useLoadScript } from "@react-google-maps/api";
 import { GOOGLE_MAPS_API_KEY } from "./../../config/constants";
 import { Spinner } from "react-bootstrap";
