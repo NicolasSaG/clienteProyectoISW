@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Jumbotron, Button, Container } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
@@ -6,12 +6,6 @@ import { useHistory } from 'react-router-dom';
 // Functional component
 const MainPage = () => {
     const history = useHistory();
-
-    useEffect(() => { // Simula nuestro componentDidUpdate, componentWillReceiveProps o cualquier otra funcion
-        
-    }, [])
-
-
 
     return (
         <div>

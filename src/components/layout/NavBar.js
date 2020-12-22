@@ -3,7 +3,7 @@ import { Navbar, Nav } from 'react-bootstrap';
 import Cookies from 'js-cookie';
 
 const NavBar = () => {
-    const [logged, setLogged] = useState(Cookies.get('session'))
+    const [logged] = useState(Cookies.get('session'))
 
     const cerrarSesion = () => {
         Cookies.remove('session');
