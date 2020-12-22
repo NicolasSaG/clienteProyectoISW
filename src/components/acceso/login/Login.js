@@ -1,26 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import './../../../login.css';
 import axios from 'axios';
 import { SERVER_NAME } from './../../../config/constants';
+import Cookies from 'js-cookie';
 
 const Login = () => {
     const { handleSubmit, register, errors } = useForm();
+    const [errorLogin, setErrorLogin] = useState(false);
 
     const onSubmit = values => {
         console.log(values);
         axios.post(`${SERVER_NAME}/login`, {
-            params: {
-                username: 'correo',
-                password: ' password'
-            }
+            username: values.correo,
+            password: values.password
         }).then((response) => {
             console.log(response)
             if (response.status === 200) {
-                console.log("OK");
+                if (!response.data.success) {
+                    setErrorLogin(true);
+                } else {
+                    setErrorLogin(false);
+                    Cookies.set('session', true, { expires: 1 });
+                    window.location.href = "/";
+                }
             }
-
         })
     }
 
@@ -55,6 +60,7 @@ const Login = () => {
                                         Ingrese su nombre
                                                 </Form.Text>
                                 }
+                                {errorLogin ? <p className="text-danger">Correo o contraseña incorrecta</p> : ""}
                             </div>
                             <div className="form-group">
                                 <button type="submit" className="btn btn-default">Acceder</button>
