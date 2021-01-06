@@ -2,13 +2,31 @@ import React from 'react';
 import { Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import './../../../LoginRegistro.css';
+import axios from 'axios';
+import { SERVER_NAME } from './../../../config/constants';
+import Swal from 'sweetalert2';
 
 const Registro = () => {
     const { handleSubmit, register, errors } = useForm();
 
-    const onSubmit = values => { // values es un objeto que posee todos los valores del formulario que tenga un 'name' asociado
-        alert(values.correo)
-        alert(values.password)
+    const onSubmit = values => {
+        console.log(values);
+        axios.post(`${SERVER_NAME}/registro`, {
+            nombre: values.nombre,
+            primerAp: values.apellidoP,
+            segundoAp: values.apellidoM,
+            passwd: values.password,
+            _id: values.email,
+            fechaNac: values.fecha
+
+        }).then((response) => {
+            console.log(response)
+            if (response.status === 200) {
+                Swal.fire('Bienvenido', 'Usuario ha Sido Registrado Con Éxito.', 'success')
+            } else {
+                Swal.fire('Error al Registrar', 'El Usuario Ya Existe', 'error')
+            }
+        })
     }
 
     return (
@@ -48,11 +66,22 @@ const Registro = () => {
                                         <div className="form-group">
                                             <input ref={register({
                                                 required: true
-                                            })} type="text" name="apellidos" className="form-control" placeholder="Apellidos *" />
+                                            })} type="text" name="apellidoP" className="form-control" placeholder="Apellido Paterno *" />
                                             {
                                                 errors.apellidos && errors.apellidos.type === "required" &&
                                                 <Form.Text className="text-danger">
-                                                    Ingrese sus apellidos
+                                                    Ingrese su Primer Apellido
+                                                </Form.Text>
+                                            }
+                                        </div>
+                                        <div className="form-group">
+                                            <input ref={register({
+                                                required: true
+                                            })} type="text" name="apellidoM" className="form-control" placeholder="Apellido Materno *" />
+                                            {
+                                                errors.apellidos && errors.apellidos.type === "required" &&
+                                                <Form.Text className="text-danger">
+                                                    Ingrese su Segundo Apellido
                                                 </Form.Text>
                                             }
                                         </div>
@@ -129,7 +158,7 @@ const Registro = () => {
                                             <select ref={register({
                                                 required: true
                                             })} name="delegacion" className="form-control">
-                                                <option defaultChecked className="hidden" selected value="">Selecciona tu Delegación</option>
+                                                <option defaultChecked className="hidden" selected value="">Selecciona tu Delegación *</option>
                                                 <option>Álvaro Obregón</option>
                                                 <option>Azcapotzalco</option>
                                                 <option>Benito Juárez</option>
