@@ -35,7 +35,7 @@ const MapaArbolado = () => {
     if (loading) return (<PageLoading/>); else {
         return (
             <Fragment>
-                <Jumbotron>
+                <Jumbotron className="bg-primary text-white">
                     <h1>Mapa general del arbolado CDMX</h1>
                     <p>
                         Ve un mapa que muestra todas las áreas verdes y árboles de la Ciudad de México
