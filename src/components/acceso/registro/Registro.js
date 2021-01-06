@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import './../../../LoginRegistro.css';
 import axios from 'axios';
@@ -39,12 +39,12 @@ const Registro = () => {
 
                 </div>
                 <div className="col-md-8 register-right">
-                    <ul className="nav nav-tabs nav-justified" id="myTab" role="tablist">
+                    {/* <ul className="nav nav-tabs nav-justified" id="myTab" role="tablist">
                         <li className="nav-item">
                             <button className="nav-link active" id="home-tab" data-toggle="tab" >Árboles</button>
                         </li>
 
-                    </ul>
+                    </ul> */}
                     <div className="tab-content" id="myTabContent">
                         <Form onSubmit={handleSubmit(onSubmit)}>
                             <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
@@ -196,7 +196,7 @@ const Registro = () => {
                                                 </Form.Text>
                                             }
                                         </div>
-                                        <input type="submit" className="btnRegister" value="Registrarse" />
+                                        <Button type="submit" className="btnRegister" variant="primary">Registrarse</Button>
                                     </div>
                                 </div>
                             </div>
