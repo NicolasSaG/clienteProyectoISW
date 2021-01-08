@@ -15,8 +15,8 @@ const Registro = () => {
             nombre: values.nombre,
             primerAp: values.apellidoP,
             segundoAp: values.apellidoM,
-            passwd: values.password,
-            _id: values.email,
+            password: values.password,
+            correo: values.email,
             fechaNac: values.fecha
 
         }).then((response) => {
@@ -68,7 +68,7 @@ const Registro = () => {
                                                 required: true
                                             })} type="text" name="apellidoP" className="form-control" placeholder="Apellido Paterno *" />
                                             {
-                                                errors.apellidos && errors.apellidos.type === "required" &&
+                                                errors.apellidoP && errors.apellidoP.type === "required" &&
                                                 <Form.Text className="text-danger">
                                                     Ingrese su Primer Apellido
                                                 </Form.Text>
@@ -79,7 +79,7 @@ const Registro = () => {
                                                 required: true
                                             })} type="text" name="apellidoM" className="form-control" placeholder="Apellido Materno *" />
                                             {
-                                                errors.apellidos && errors.apellidos.type === "required" &&
+                                                errors.apellidoM && errors.apellidoM.type === "required" &&
                                                 <Form.Text className="text-danger">
                                                     Ingrese su Segundo Apellido
                                                 </Form.Text>
@@ -88,47 +88,15 @@ const Registro = () => {
                                         <div className="form-group">
                                             <input ref={register({
                                                 required: true
-                                            })} type="password" name="password" className="form-control" placeholder="Contraseña *" />
+                                            })} type="password" name="password" className="form-control" minlength="6" placeholder="Contraseña *" />
                                             {
                                                 errors.password && errors.password.type === "required" &&
                                                 <Form.Text className="text-danger">
-                                                    Ingrese sus apellidos
+                                                    Ingrese su Contraseña
                                                 </Form.Text>
                                             }
                                         </div>
-                                        <div className="form-group">
-                                            <input ref={register({
-                                                required: true
-                                            })} type="password" name="confirmpassword" className="form-control" placeholder="Confirmar Contraseña *" />
-                                            {
-                                                errors.confirmpassword && errors.confirmpassword.type === "required" &&
-                                                <Form.Text className="text-danger">
-                                                    Repita su contraseña
-                                                </Form.Text>
-                                            }
-                                        </div>
-                                        <div className="form-group">
-                                            <div className="maxl">
-                                                <label className="radio inline">
-                                                    <input ref={register({
-                                                        required: true
-                                                    })} type="radio" name="gender" value="male"></input>
-                                                    <span> Masculino </span>
-                                                </label> &nbsp;
-                                                <label className="radio inline">
-                                                    <input ref={register({
-                                                        required: true
-                                                    })} type="radio" name="gender" value="female"></input>
-                                                    <span>Femenino </span>
-                                                </label>
-                                            </div>
-                                            {
-                                                errors.gender && errors.gender.type === "required" &&
-                                                <Form.Text className="text-danger">
-                                                    Escoga una opción
-                                                </Form.Text>
-                                            }
-                                        </div>
+
                                     </div>
                                     <div className="col-md-6">
                                         <div className="form-group">
@@ -142,18 +110,7 @@ const Registro = () => {
                                                 </Form.Text>
                                             }
                                         </div>
-                                        <div className="form-group">
-                                            <input ref={register({
-                                                required: true
-                                                // Aqui se pueden agregar otros tipos de validaciones como min, max, minLength, maxLenght, pattern(Regex) y abajo es necesario poner el codigo nedcesario para mostrar el mensaje para cada tipo de validacion
-                                            })} type="text" name="telefono" minlength="10" maxlength="10" className="form-control" placeholder="Número Telefónico *" />
-                                            {
-                                                errors.telefono && errors.telefono.type === "required" &&
-                                                <Form.Text className="text-danger">
-                                                    Ingrese su telefono
-                                                </Form.Text>
-                                            }
-                                        </div>
+
                                         <div className="form-group">
                                             <select ref={register({
                                                 required: true
