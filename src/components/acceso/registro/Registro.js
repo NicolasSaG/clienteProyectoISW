@@ -17,15 +17,21 @@ const Registro = () => {
             segundoAp: values.apellidoM,
             password: values.password,
             correo: values.email,
-            fechaNac: values.fecha
+            fechaNac: values.fecha,
+            delegacion: values.delegacion
 
         }).then((response) => {
             console.log(response)
             if (response.status === 200) {
-                Swal.fire('Bienvenido', 'Usuario ha Sido Registrado Con Éxito.', 'success')
-            } else {
-                Swal.fire('Error al Registrar', 'El Usuario Ya Existe', 'error')
+                if (response.data.errors.length == 0) {
+                    Swal.fire('Bienvenido', 'Usuario ha Sido Registrado Con Éxito.', 'success')
+                    window.location.href = "/";
+                } else {
+                    Swal.fire('Error al Registrar', 'El Usuario Ya Existe', 'error')
+
+                }
             }
+
         })
     }
 
