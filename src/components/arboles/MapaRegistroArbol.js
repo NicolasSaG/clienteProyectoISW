@@ -1,13 +1,14 @@
 import React from "react";
 import { GoogleMap, useLoadScript } from "@react-google-maps/api";
 import { GOOGLE_MAPS_API_KEY } from "./../../config/constants";
-import axios from 'axios';
+import axios from "axios";
 import { Spinner } from "react-bootstrap";
 
 const options = {
   disableDefaultUI: false,
   zoomControl: true,
   gestureHandling: "greedy",
+  mapTypeId: "satellite",
 };
 
 const mapContainerStyle = {
@@ -37,6 +38,7 @@ const MapaRegistroArbol = ({ center, getCoords }) => {
 
     const geodecode =
       "https://maps.googleapis.com/maps/api/geocode/json?latlng";
+    //|postal_code
     axios
       .get(
         `${geodecode}=${values.latLng.lat()},${values.latLng.lng()}&key=${GOOGLE_MAPS_API_KEY}`
@@ -45,6 +47,7 @@ const MapaRegistroArbol = ({ center, getCoords }) => {
         const dir = res.data;
         const realDir = dir.results[0];
         datosObtenidos.direccionFormateada = realDir.formatted_address;
+        const deleg = datosObtenidos.direccionFormateada.split(",");
         realDir.address_components.forEach((element) => {
           if (element.types.includes("street_number")) {
             datosObtenidos.numeroCalle = element.long_name;
@@ -52,7 +55,11 @@ const MapaRegistroArbol = ({ center, getCoords }) => {
           if (element.types.includes("route")) {
             datosObtenidos.calle = element.long_name;
           }
+          if (element.types.includes("postal_code")) {
+            datosObtenidos.postal_code = element.long_name;
+          }
         });
+        datosObtenidos.deleg = deleg[deleg.length - 4];
         getCoords(datosObtenidos);
       });
   };
