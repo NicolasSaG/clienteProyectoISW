@@ -26,8 +26,8 @@ function Servicio() {
                 custom
               >
                 {[
-                  " Poda de formacion de individuos jovenes",
-                  "Poda de arboles latifoliados maduros",
+                  "Poda de formación de individuos jóvenes",
+                  "Poda de árboles latifoliados maduros",
                 ].map((i) => (
                   <option key={i} value={i}>
                     {i}
@@ -42,9 +42,9 @@ function Servicio() {
             <Form.Label>Tipo de poda: </Form.Label>
           </Col>
           <Col sm lg='4'>
-            <Form.Group controlId='formBasicActividadTipoPoda'>
+            <Form.Group controlId='formBasicActividadTipo'>
               <Form.Control
-                name='actividadTipoPoda'
+                name='actividadTipo'
                 as='select'
                 ref={register({
                   required: true,
