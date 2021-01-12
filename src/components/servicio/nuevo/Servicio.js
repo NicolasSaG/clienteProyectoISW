@@ -8,15 +8,168 @@ function Servicio() {
   const { handleSubmit, register, setValue, errors, watch } = useForm();
   const watchTipoActividad = watch("actividad");
 
+  const inputsPoda = () => {
+    return (
+      <div>
+        <Row className='justify-content-md-center'>
+          <Col lg='2'>
+            <Form.Label>Tipo de arbol a podar: </Form.Label>
+          </Col>
+          <Col sm lg='4'>
+            <Form.Group controlId='formBasicActividadTipoArbol'>
+              <Form.Control
+                name='actividadTipoArbol'
+                as='select'
+                ref={register({
+                  required: true,
+                })}
+                custom
+              >
+                {[
+                  " Poda de formacion de individuos jovenes",
+                  "Poda de arboles latifoliados maduros",
+                ].map((i) => (
+                  <option key={i} value={i}>
+                    {i}
+                  </option>
+                ))}
+              </Form.Control>
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row className='justify-content-md-center'>
+          <Col lg='2'>
+            <Form.Label>Tipo de poda: </Form.Label>
+          </Col>
+          <Col sm lg='4'>
+            <Form.Group controlId='formBasicActividadTipoPoda'>
+              <Form.Control
+                name='actividadTipoPoda'
+                as='select'
+                ref={register({
+                  required: true,
+                })}
+                custom
+              >
+                {[
+                  "Limpieza de copa",
+                  "Restauración de copa",
+                  "Aclareo de copa",
+                  "Elevación de copa",
+                  "Reducción de copa",
+                  "Poda bajo cableado eléctrico aéreo",
+                  "Poda de raíces",
+                ].map((i) => (
+                  <option key={i} value={i}>
+                    {i}
+                  </option>
+                ))}
+              </Form.Control>
+            </Form.Group>
+          </Col>
+        </Row>
+
+        <Row className='justify-content-md-center'>
+          <Col lg='2'>
+            <Form.Label>Causa de poda: </Form.Label>
+          </Col>
+          <Col sm lg='4'>
+            <Form.Group controlId='formBasicActividadCausa'>
+              <Form.Control
+                name='actividadCausa'
+                as='select'
+                ref={register({
+                  required: true,
+                })}
+                custom
+              >
+                {[
+                  "Riesgo",
+
+                  "Estado fitosanitario",
+
+                  "Restauración de estrucutura",
+
+                  "Afectación de infraestructura, equipamiento y servicios urbanos",
+
+                  "Mantenimiento",
+                ].map((i) => (
+                  <option key={i} value={i}>
+                    {i}
+                  </option>
+                ))}
+              </Form.Control>
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row className='justify-content-md-center'>
+          <Col lg='6'>
+            <Form.Group controlId='formBasicActividadDescripcion'>
+              <Form.Control
+                as='textarea'
+                name='actividadDescripcion'
+                ref={register({
+                  required: false,
+                })}
+              />
+            </Form.Group>
+          </Col>
+        </Row>
+      </div>
+    );
+  };
+
+  const inputsTransplante = () => {
+    return (
+      <div>
+        <Row className='justify-content-md-center'>
+          <Col lg='6'>
+            <Form.Group controlId='formBasicActividadDescripcion'>
+              <Form.Control
+                as='textarea'
+                name='actividadDescripcion'
+                ref={register({
+                  required: false,
+                })}
+              />
+            </Form.Group>
+          </Col>
+        </Row>
+      </div>
+    );
+  };
+
+  const inputsDerribo = () => {
+    return (
+      <div>
+        <Row className='justify-content-md-center'>
+          <Col lg='6'>
+            <Form.Group controlId='formBasicActividadDescripcion'>
+              <Form.Control
+                as='textarea'
+                name='actividadDescripcion'
+                ref={register({
+                  required: false,
+                })}
+              />
+            </Form.Group>
+          </Col>
+        </Row>
+      </div>
+    );
+  };
+
   function actividades() {
     console.log("cambio");
     console.log(watchTipoActividad);
     if (watchTipoActividad === "poda") {
-      return <div>inputs de poda</div>;
+      return inputsPoda();
     } else if (watchTipoActividad === "transplante") {
-      return <div>inputs de transplante</div>;
+      return inputsTransplante();
     } else if (watchTipoActividad === "derribo") {
-      return <div>inputs de derribo</div>;
+      return inputsDerribo();
+    } else {
+      return inputsPoda();
     }
     return;
   }
@@ -40,18 +193,19 @@ function Servicio() {
           </Col>
           <Col sm lg='2'>
             <Form.Group controlId='formBasicActividad'>
-              <select
+              <Form.Control
+                as='select'
+                custom
                 name='actividad'
-                ref={register({
-                  required: true,
-                })}
+                ref={register}
+                defaultValue='poda'
               >
-                {["", "poda", "transplante", "derribo"].map((i) => (
+                {["poda", "transplante", "derribo"].map((i) => (
                   <option key={i} value={i}>
                     {i}
                   </option>
                 ))}
-              </select>
+              </Form.Control>
             </Form.Group>
           </Col>
         </Row>
