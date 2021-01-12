@@ -13,7 +13,7 @@ function Servicio() {
       <div>
         <Row className='justify-content-md-center'>
           <Col lg='2'>
-            <Form.Label>Tipo de arbol a podar: </Form.Label>
+            <Form.Label>Tipo de árbol a podar: </Form.Label>
           </Col>
           <Col sm lg='4'>
             <Form.Group controlId='formBasicActividadTipoArbol'>
@@ -102,15 +102,17 @@ function Servicio() {
             </Form.Group>
           </Col>
         </Row>
+
         <Row className='justify-content-md-center'>
-          <Col lg='6'>
+          <Col lg='2'>
+            <Form.Label>Descripción: </Form.Label>
+          </Col>
+          <Col lg='4'>
             <Form.Group controlId='formBasicActividadDescripcion'>
               <Form.Control
                 as='textarea'
                 name='actividadDescripcion'
-                ref={register({
-                  required: false,
-                })}
+                ref={register}
               />
             </Form.Group>
           </Col>
@@ -123,7 +125,69 @@ function Servicio() {
     return (
       <div>
         <Row className='justify-content-md-center'>
-          <Col lg='6'>
+          <Col lg='2'>
+            <Form.Label>Tipo de árbol a transplantar: </Form.Label>
+          </Col>
+          <Col sm lg='4'>
+            <Form.Group controlId='formBasicActividadTipoArbol'>
+              <Form.Control
+                name='actividadTipoArbol'
+                as='select'
+                ref={register({
+                  required: true,
+                })}
+                custom
+              >
+                {[
+                  "Poda de formación de individuos jóvenes",
+                  "Poda de árboles latifoliados maduros",
+                ].map((i) => (
+                  <option key={i} value={i}>
+                    {i}
+                  </option>
+                ))}
+              </Form.Control>
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row className='justify-content-md-center'>
+          <Col lg='2'>
+            <Form.Label>Causa de transplante: </Form.Label>
+          </Col>
+          <Col sm lg='4'>
+            <Form.Group controlId='formBasicActividadCausa'>
+              <Form.Control
+                name='actividadCausa'
+                as='select'
+                ref={register({
+                  required: true,
+                })}
+                custom
+              >
+                {[
+                  "Riesgo",
+
+                  "Estado fitosanitario",
+
+                  "Restauración de estrucutura",
+
+                  "Afectación de infraestructura, equipamiento y servicios urbanos",
+
+                  "Mantenimiento",
+                ].map((i) => (
+                  <option key={i} value={i}>
+                    {i}
+                  </option>
+                ))}
+              </Form.Control>
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row className='justify-content-md-center'>
+          <Col lg='2'>
+            <Form.Label>Descripción: </Form.Label>
+          </Col>
+          <Col lg='4'>
             <Form.Group controlId='formBasicActividadDescripcion'>
               <Form.Control
                 as='textarea'
@@ -143,7 +207,67 @@ function Servicio() {
     return (
       <div>
         <Row className='justify-content-md-center'>
-          <Col lg='6'>
+          <Col lg='2'>
+            <Form.Label>Tipo de árbol a derribar: </Form.Label>
+          </Col>
+          <Col sm lg='4'>
+            <Form.Group controlId='formBasicActividadTipoArbol'>
+              <Form.Control
+                name='actividadTipoArbol'
+                as='select'
+                ref={register({
+                  required: true,
+                })}
+                custom
+              >
+                {[
+                  "Poda de formación de individuos jóvenes",
+                  "Poda de árboles latifoliados maduros",
+                ].map((i) => (
+                  <option key={i} value={i}>
+                    {i}
+                  </option>
+                ))}
+              </Form.Control>
+            </Form.Group>
+          </Col>
+        </Row>
+
+        <Row className='justify-content-md-center'>
+          <Col lg='2'>
+            <Form.Label>Causa de derribo: </Form.Label>
+          </Col>
+          <Col sm lg='4'>
+            <Form.Group controlId='formBasicActividadCausa'>
+              <Form.Control
+                name='actividadCausa'
+                as='select'
+                ref={register({
+                  required: true,
+                })}
+                custom
+              >
+                {[
+                  "Riesgo",
+                  "Mejoramiento y mantenimiento de área verde pública",
+                  "Afectación severa al patrimonio urbanístico y arquitectónico",
+                  "Por obra pública o privada",
+                  "Otro",
+                ].map((i) => (
+                  <option key={i} value={i}>
+                    {i}
+                  </option>
+                ))}
+              </Form.Control>
+            </Form.Group>
+          </Col>
+        </Row>
+
+        <Row className='justify-content-md-center'>
+          <Col lg='2'>
+            <Form.Label>Descripción: </Form.Label>
+          </Col>
+          <Col lg='4'>
             <Form.Group controlId='formBasicActividadDescripcion'>
               <Form.Control
                 as='textarea'
@@ -176,7 +300,6 @@ function Servicio() {
 
   const onSubmit = (values) => {
     console.log(values);
-    //console.log(actividad.value);
   };
 
   return (
