@@ -1,15 +1,24 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Jumbotron, Col, Form, Row, Button, InputGroup } from "react-bootstrap";
+import { Jumbotron, Col, Form, Row, Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 
-const Servicio = () => {
+function Servicio() {
   const { id } = useParams();
   const { handleSubmit, register, setValue, errors, watch } = useForm();
   const watchTipoActividad = watch("actividad");
 
   function actividades() {
-    if (watchTipoActividad === "poda") return;
+    console.log("cambio");
+    console.log(watchTipoActividad);
+    if (watchTipoActividad === "poda") {
+      return <div>inputs de poda</div>;
+    } else if (watchTipoActividad === "transplante") {
+      return <div>inputs de transplante</div>;
+    } else if (watchTipoActividad === "derribo") {
+      return <div>inputs de derribo</div>;
+    }
+    return;
   }
 
   const onSubmit = (values) => {
@@ -31,32 +40,28 @@ const Servicio = () => {
           </Col>
           <Col sm lg='2'>
             <Form.Group controlId='formBasicActividad'>
-              <Form.Control
+              <select
                 name='actividad'
-                as='select'
                 ref={register({
                   required: true,
                 })}
-                custom
               >
-                {["poda", "transplante", "derribo"].map((i) => (
+                {["", "poda", "transplante", "derribo"].map((i) => (
                   <option key={i} value={i}>
                     {i}
                   </option>
                 ))}
-              </Form.Control>
+              </select>
             </Form.Group>
           </Col>
         </Row>
 
-        {() => {
-          //console.log(actividad.value);
-        }}
+        {actividades()}
 
         <Button type='submit'>Subir solicitud</Button>
       </Form>
     </div>
   );
-};
+}
 
 export default Servicio;
