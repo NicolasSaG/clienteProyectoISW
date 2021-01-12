@@ -69,7 +69,7 @@ const RegistroArbol = () => {
 
         <Row className='justify-content-md-center'>
           <Col sm lg='6'>
-            <Form.Group controlId='formBasicDireccion'>
+            <Form.Group controlId='formBasicDelegacion'>
               <Form.Control
                 name='delegacion'
                 ref={register({
@@ -89,7 +89,7 @@ const RegistroArbol = () => {
 
         <Row className='justify-content-md-center'>
           <Col sm lg='6'>
-            <Form.Group controlId='formBasicDireccion'>
+            <Form.Group controlId='formBasicCP'>
               <Form.Control
                 name='codigoPostal'
                 ref={register({
