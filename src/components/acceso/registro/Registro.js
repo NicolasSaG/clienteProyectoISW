@@ -2,13 +2,37 @@ import React from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import './../../../LoginRegistro.css';
+import axios from 'axios';
+import { SERVER_NAME } from './../../../config/constants';
+import Swal from 'sweetalert2';
 
 const Registro = () => {
     const { handleSubmit, register, errors } = useForm();
 
-    const onSubmit = values => { // values es un objeto que posee todos los valores del formulario que tenga un 'name' asociado
-        alert(values.correo)
-        alert(values.password)
+    const onSubmit = values => {
+        console.log(values);
+        axios.post(`${SERVER_NAME}/registro`, {
+            nombre: values.nombre,
+            primerAp: values.apellidoP,
+            segundoAp: values.apellidoM,
+            password: values.password,
+            correo: values.email,
+            fechaNac: values.fecha,
+            delegacion: values.delegacion
+
+        }).then((response) => {
+            console.log(response)
+            if (response.status === 200) {
+                if (response.data.errors.length == 0) {
+                    Swal.fire('Bienvenido', 'Usuario ha Sido Registrado Con Éxito.', 'success')
+                    window.location.href = "/";
+                } else {
+                    Swal.fire('Error al Registrar', 'El Usuario Ya Existe', 'error')
+
+                }
+            }
+
+        })
     }
 
     return (
@@ -48,58 +72,37 @@ const Registro = () => {
                                         <div className="form-group">
                                             <input ref={register({
                                                 required: true
-                                            })} type="text" name="apellidos" className="form-control" placeholder="Apellidos *" />
+                                            })} type="text" name="apellidoP" className="form-control" placeholder="Apellido Paterno *" />
                                             {
-                                                errors.apellidos && errors.apellidos.type === "required" &&
+                                                errors.apellidoP && errors.apellidoP.type === "required" &&
                                                 <Form.Text className="text-danger">
-                                                    Ingrese sus apellidos
+                                                    Ingrese su Primer Apellido
                                                 </Form.Text>
                                             }
                                         </div>
                                         <div className="form-group">
                                             <input ref={register({
                                                 required: true
-                                            })} type="password" name="password" className="form-control" placeholder="Contraseña *" />
+                                            })} type="text" name="apellidoM" className="form-control" placeholder="Apellido Materno *" />
+                                            {
+                                                errors.apellidoM && errors.apellidoM.type === "required" &&
+                                                <Form.Text className="text-danger">
+                                                    Ingrese su Segundo Apellido
+                                                </Form.Text>
+                                            }
+                                        </div>
+                                        <div className="form-group">
+                                            <input ref={register({
+                                                required: true
+                                            })} type="password" name="password" className="form-control" minlength="6" placeholder="Contraseña *" />
                                             {
                                                 errors.password && errors.password.type === "required" &&
                                                 <Form.Text className="text-danger">
-                                                    Ingrese sus apellidos
+                                                    Ingrese su Contraseña
                                                 </Form.Text>
                                             }
                                         </div>
-                                        <div className="form-group">
-                                            <input ref={register({
-                                                required: true
-                                            })} type="password" name="confirmpassword" className="form-control" placeholder="Confirmar Contraseña *" />
-                                            {
-                                                errors.confirmpassword && errors.confirmpassword.type === "required" &&
-                                                <Form.Text className="text-danger">
-                                                    Repita su contraseña
-                                                </Form.Text>
-                                            }
-                                        </div>
-                                        <div className="form-group">
-                                            <div className="maxl">
-                                                <label className="radio inline">
-                                                    <input ref={register({
-                                                        required: true
-                                                    })} type="radio" name="gender" value="male"></input>
-                                                    <span> Masculino </span>
-                                                </label> &nbsp;
-                                                <label className="radio inline">
-                                                    <input ref={register({
-                                                        required: true
-                                                    })} type="radio" name="gender" value="female"></input>
-                                                    <span>Femenino </span>
-                                                </label>
-                                            </div>
-                                            {
-                                                errors.gender && errors.gender.type === "required" &&
-                                                <Form.Text className="text-danger">
-                                                    Escoga una opción
-                                                </Form.Text>
-                                            }
-                                        </div>
+
                                     </div>
                                     <div className="col-md-6">
                                         <div className="form-group">
@@ -113,23 +116,12 @@ const Registro = () => {
                                                 </Form.Text>
                                             }
                                         </div>
-                                        <div className="form-group">
-                                            <input ref={register({
-                                                required: true
-                                                // Aqui se pueden agregar otros tipos de validaciones como min, max, minLength, maxLenght, pattern(Regex) y abajo es necesario poner el codigo nedcesario para mostrar el mensaje para cada tipo de validacion
-                                            })} type="text" name="telefono" minlength="10" maxlength="10" className="form-control" placeholder="Número Telefónico *" />
-                                            {
-                                                errors.telefono && errors.telefono.type === "required" &&
-                                                <Form.Text className="text-danger">
-                                                    Ingrese su telefono
-                                                </Form.Text>
-                                            }
-                                        </div>
+
                                         <div className="form-group">
                                             <select ref={register({
                                                 required: true
                                             })} name="delegacion" className="form-control">
-                                                <option defaultChecked className="hidden" selected value="">Selecciona tu Delegación</option>
+                                                <option defaultChecked className="hidden" selected value="">Selecciona tu Delegación *</option>
                                                 <option>Álvaro Obregón</option>
                                                 <option>Azcapotzalco</option>
                                                 <option>Benito Juárez</option>
