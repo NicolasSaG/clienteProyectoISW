@@ -42,13 +42,11 @@ function Servicio() {
             <Form.Label>Tipo de poda: </Form.Label>
           </Col>
           <Col sm lg='4'>
-            <Form.Group controlId='formBasicActividadTipo'>
+            <Form.Group controlId='formBasicActividadTipoPoda'>
               <Form.Control
-                name='actividadTipo'
+                name='actividadTipoPoda'
                 as='select'
-                ref={register({
-                  required: true,
-                })}
+                ref={register}
                 custom
               >
                 {[
@@ -68,7 +66,6 @@ function Servicio() {
             </Form.Group>
           </Col>
         </Row>
-
         <Row className='justify-content-md-center'>
           <Col lg='2'>
             <Form.Label>Causa de poda: </Form.Label>
@@ -102,7 +99,6 @@ function Servicio() {
             </Form.Group>
           </Col>
         </Row>
-
         <Row className='justify-content-md-center'>
           <Col lg='2'>
             <Form.Label>Descripción: </Form.Label>
@@ -297,6 +293,12 @@ function Servicio() {
   }
 
   const onSubmit = (values) => {
+    if (watchTipoActividad === "transplante") {
+      delete values.actividadTipoPoda;
+    }
+    if (watchTipoActividad === "derribo") {
+      delete values.actividadTipoPoda;
+    }
     console.log(values);
   };
 
