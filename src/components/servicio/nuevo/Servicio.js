@@ -284,8 +284,6 @@ function Servicio() {
   };
 
   function actividades() {
-    console.log("cambio");
-    console.log(watchTipoActividad);
     if (watchTipoActividad === "poda") {
       return inputsPoda();
     } else if (watchTipoActividad === "transplante") {
@@ -308,35 +306,36 @@ function Servicio() {
         <h3>Solicitud de un servicio</h3>
         <p>{id}</p>
       </Jumbotron>
+      <div align='center'>
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <Row className='justify-content-md-center'>
+            <Col lg='2'>
+              <Form.Label>Tipo de actividad: </Form.Label>
+            </Col>
+            <Col sm lg='4'>
+              <Form.Group controlId='formBasicActividad'>
+                <Form.Control
+                  as='select'
+                  custom
+                  name='actividad'
+                  ref={register}
+                  defaultValue='poda'
+                >
+                  {["poda", "transplante", "derribo"].map((i) => (
+                    <option key={i} value={i}>
+                      {i}
+                    </option>
+                  ))}
+                </Form.Control>
+              </Form.Group>
+            </Col>
+          </Row>
 
-      <Form onSubmit={handleSubmit(onSubmit)}>
-        <Row className='justify-content-md-center'>
-          <Col lg='2'>
-            <Form.Label>Tipo de actividad: </Form.Label>
-          </Col>
-          <Col sm lg='2'>
-            <Form.Group controlId='formBasicActividad'>
-              <Form.Control
-                as='select'
-                custom
-                name='actividad'
-                ref={register}
-                defaultValue='poda'
-              >
-                {["poda", "transplante", "derribo"].map((i) => (
-                  <option key={i} value={i}>
-                    {i}
-                  </option>
-                ))}
-              </Form.Control>
-            </Form.Group>
-          </Col>
-        </Row>
+          {actividades()}
 
-        {actividades()}
-
-        <Button type='submit'>Subir solicitud</Button>
-      </Form>
+          <Button type='submit'>Subir solicitud</Button>
+        </Form>
+      </div>
     </div>
   );
 }
