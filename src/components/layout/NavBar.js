@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Navbar, Nav, Form, Image, Button } from 'react-bootstrap';
+import { Navbar, Nav, Form, Image, Button, NavDropdown } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
@@ -28,12 +28,18 @@ const NavBar = () => {
                 <Nav.Link onClick={() => history.push("/mapa")}>Mapa</Nav.Link>
                 <Nav.Link onClick={() => history.push("/")}>Información</Nav.Link>
             </Nav>
-            <Form inline>
+            {logged !== 'true' ? <Form inline>
                 <Button onClick={() => history.push("/login")} variant="outline-primary" >Iniciar Sesión</Button> &nbsp;
                 <Button onClick={() => history.push("/registro")} variant="secondary">Registrarse</Button>
-            </Form>
-            {logged === 'true' ? <Nav className="mr-auto">
-                <Nav.Link onClick={() => { cerrarSesion() }}>Cerrar sesion</Nav.Link></Nav> : ""}
+            </Form> :
+                <Form inline>
+                    <NavDropdown title={`@ ${Cookies.get('user')}`} id="basic-nav-dropdown">
+                        <NavDropdown.Item href="#action/3.1">Mi cuenta</NavDropdown.Item>
+                        <NavDropdown.Divider />
+                        <NavDropdown.Item onClick={() => { cerrarSesion() }}>Cerrar Sesión</NavDropdown.Item>
+                    </NavDropdown>
+                </Form>
+            }
         </Navbar>
     );
 }

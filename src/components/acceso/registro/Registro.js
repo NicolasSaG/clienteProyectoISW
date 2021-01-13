@@ -18,12 +18,13 @@ const Registro = () => {
             password: values.password,
             correo: values.email,
             fechaNac: values.fecha,
-            delegacion: values.delegacion
+            delegacion: values.delegacion,
+            tipodeusuario: "ciudadano"
 
         }).then((response) => {
             console.log(response)
             if (response.status === 200) {
-                if (response.data.errors.length == 0) {
+                if (response.data.errors.length === 0) {
                     Swal.fire('Bienvenido', 'Usuario ha Sido Registrado Con Éxito.', 'success')
                     window.location.href = "/";
                 } else {
@@ -94,7 +95,7 @@ const Registro = () => {
                                         <div className="form-group">
                                             <input ref={register({
                                                 required: true
-                                            })} type="password" name="password" className="form-control" minlength="6" placeholder="Contraseña *" />
+                                            })} type="password" name="password" className="form-control" minLength="6" autoComplete="on" placeholder="Contraseña *" />
                                             {
                                                 errors.password && errors.password.type === "required" &&
                                                 <Form.Text className="text-danger">
@@ -121,7 +122,7 @@ const Registro = () => {
                                             <select ref={register({
                                                 required: true
                                             })} name="delegacion" className="form-control">
-                                                <option defaultChecked className="hidden" selected value="">Selecciona tu Delegación *</option>
+                                                <option defaultChecked className="hidden" value="">Selecciona tu Delegación *</option>
                                                 <option>Álvaro Obregón</option>
                                                 <option>Azcapotzalco</option>
                                                 <option>Benito Juárez</option>
