@@ -17,6 +17,9 @@ const RegistroArbol = () => {
 
   const getChildData = (data) => {
     setValue("direccion", data.direccionFormateada);
+    setValue("delegacion", data.deleg);
+    setValue("codigoPostal", data.postal_code);
+
     setValue("coordLat", data.lat);
     setValue("coordLg", data.lng);
   };
@@ -60,6 +63,47 @@ const RegistroArbol = () => {
                   No se ha seleccionado un árbol en el mapa
                 </Form.Text>
               )}
+            </Form.Group>
+          </Col>
+        </Row>
+
+        <Row className='justify-content-md-center'>
+          <Col sm lg='6'>
+            <Form.Group controlId='formBasicDelegacion'>
+              <Form.Control
+                name='delegacion'
+                ref={register({
+                  required: true,
+                })}
+                type='text'
+                placeholder='delegacion'
+              />
+              {errors.delegacion && errors.delegacion.type === "required" && (
+                <Form.Text className='text-danger'>
+                  No se obtuvo la delegación
+                </Form.Text>
+              )}
+            </Form.Group>
+          </Col>
+        </Row>
+
+        <Row className='justify-content-md-center'>
+          <Col sm lg='6'>
+            <Form.Group controlId='formBasicCP'>
+              <Form.Control
+                name='codigoPostal'
+                ref={register({
+                  required: true,
+                })}
+                type='text'
+                placeholder='codigoPostal'
+              />
+              {errors.codigoPostal &&
+                errors.codigoPostal.type === "required" && (
+                  <Form.Text className='text-danger'>
+                    No se obtuvo el codigo postal
+                  </Form.Text>
+                )}
             </Form.Group>
           </Col>
         </Row>
@@ -132,9 +176,6 @@ const RegistroArbol = () => {
           center={{ latitude: 19.42303354379363, longitude: -99.1631714061342 }}
           getCoords={getChildData}
         ></MapaRegistroArbol>
-        <button
-          onClick={() => setValue("delegacion", "miguel hidalgo")}
-        ></button>
       </div>
     </div>
   );
