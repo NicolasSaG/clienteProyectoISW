@@ -13,6 +13,8 @@ const NotFound = lazy(() => import('./components/layout/404'));
 const MapaArbolado = lazy(() => import('./components/mapa/MapaArbolado'));
 const SolicitudServicio = lazy(() => import('./components/servicio/nuevo/Servicio'));
 const RepresentanteAlcadia = lazy(() => import('./components/admin/RegistroRepresentanteAlcaldia'));
+const ConfigCuentaUsuario = lazy(() => import('./components/cuenta/CuentaUsuario'));
+const SolicitudesServicios = lazy(() => import('./components/servicio/solicitudes/Servicios'));
 
 function App() {
   return (
@@ -28,6 +30,8 @@ function App() {
             <Route exact path="/registroArbol" component={RegistroArbol} />
             <Route exact path="/registroRepresentanteAlcaldia" component={RepresentanteAlcadia} />
             <Route exact path="/solicitudServicio/:id" component={SolicitudServicio} />
+            <Route exact path="/miCuenta" component={ConfigCuentaUsuario} />
+            <Route exact path="/solicitudesServicios" component={SolicitudesServicios} />
             {/* Routes ...... */}
             <Route exact path="/404" component={NotFound} />
             <Redirect to="/404" />

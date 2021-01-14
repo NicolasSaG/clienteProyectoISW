@@ -16,7 +16,7 @@ const NavBar = () => {
             <Navbar.Brand href="/">
                 <Image
                     alt=""
-                    src="/assets/imagenes/logo.svg"
+                    src="/assets/imagenes/tree.png"
                     width="30"
                     height="30"
                     className="d-inline-block align-top"
@@ -32,9 +32,9 @@ const NavBar = () => {
                 <Button onClick={() => history.push("/login")} variant="outline-primary" >Iniciar Sesión</Button> &nbsp;
                 <Button onClick={() => history.push("/registro")} variant="secondary">Registrarse</Button>
             </Form> :
-                <Form inline>
+                <Form >
                     <NavDropdown title={`@ ${Cookies.get('user')}`} id="basic-nav-dropdown">
-                        <NavDropdown.Item href="#action/3.1">Mi cuenta</NavDropdown.Item>
+                        <NavDropdown.Item onClick={() => history.push("/miCuenta")}>Mi cuenta</NavDropdown.Item>
                         <NavDropdown.Divider />
                         <NavDropdown.Item onClick={() => { cerrarSesion() }}>Cerrar Sesión</NavDropdown.Item>
                     </NavDropdown>

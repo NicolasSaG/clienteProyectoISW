@@ -27,6 +27,7 @@ const MainPage = () => {
                                 <Button size="lg" onClick={() => history.push("/mapa")} variant="info">Mapa</Button> &nbsp;&nbsp;
                                 <Button size="lg" onClick={() => history.push("/registroArbol")} variant="secondary">Registrar arbol</Button>&nbsp;&nbsp;
                                 <Button size="lg" onClick={() => history.push("/registroRepresentanteAlcaldia")} variant="secondary">Registrar representante de alcaldía</Button>
+                                <Button size="lg" onClick={() => history.push("/solicitudesServicios")} variant="secondary">Ver solicitudes</Button>
                             </p>
                         </Col>
                         <Col sm={5} className="text-center">
