@@ -14,7 +14,6 @@ const RegistroRepresentanteAlcaldia = () => {
     //   .post(`${SERVER_NAME}/registro`, {
     //     nombre: values.nombre,
     //     password: values.password,
-    //     correo: values.email,
     //     tipodeusuario: "admin",
     //   })
     //   .then((response) => {
@@ -69,22 +68,6 @@ const RegistroRepresentanteAlcaldia = () => {
                   {errors.nombre && errors.nombre.type === "maxLength" && (
                     <Form.Text className='text-danger'>
                       Cadena ingresada es muy larga
-                    </Form.Text>
-                  )}
-                </Form.Group>
-                <Form.Group controlId='formBasicEmail'>
-                  <Form.Label>Correo Electrónico</Form.Label>
-                  <Form.Control
-                    name='email'
-                    ref={register({
-                      required: true,
-                    })}
-                    type='email'
-                    placeholder='Ingresa tu correo Electrónico'
-                  />
-                  {errors.email && errors.email.type === "required" && (
-                    <Form.Text className='text-danger'>
-                      Ingrese un correo electrónico
                     </Form.Text>
                   )}
                 </Form.Group>
