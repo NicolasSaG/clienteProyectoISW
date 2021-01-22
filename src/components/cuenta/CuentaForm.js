@@ -1,13 +1,30 @@
 import React, { Fragment } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
+import { SERVER_NAME } from "./../../config/constants";
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import Swal from 'sweetalert2';
 
-const CuentaForm = () => {
+const CuentaForm = ({ data, setData }) => {
     const { handleSubmit, register, errors } = useForm();
 
     const onSubmit = (values) => {
-
-
+        axios.put(`${SERVER_NAME}/usuario`, {
+            params: {
+                email: Cookies.get('correo'),
+                nombre: values.nombre,
+                primerAp: values.apellidoP,
+                segundoAp: values.apellidoM,
+                delegacion: values.estado
+            }
+        }).then((response) => {
+            if (response.data.success) {
+                setData(response.data.usuario.usuario);
+                Swal.fire('Cambios realizado con éxito', "", 'success')
+            } else
+                Swal.fire('Ha ocurrido un error', "", 'error')
+        })
 
     }
 
@@ -20,7 +37,7 @@ const CuentaForm = () => {
                     <input ref={register({
                         required: true,
                         maxLength: 30,
-                    })} name="nombre" className="form-control" id="exampleInputNombre" placeholder="Nombre" defaultValue="Jesus" />
+                    })} name="nombre" className="form-control" id="exampleInputNombre" placeholder="Nombre" defaultValue={data.nombre} />
                     {
                         errors.nombre && errors.nombre.type === "required" &&
                         <Form.Text className="text-danger">
@@ -38,7 +55,7 @@ const CuentaForm = () => {
                     <input ref={register({
                         required: true,
                         maxLength: 30,
-                    })} name="apellidoP" className="form-control" id="exampleInputPat" placeholder="Apellido Paterno" defaultValue="Medina" />
+                    })} name="apellidoP" className="form-control" id="exampleInputPat" placeholder="Apellido Paterno" defaultValue={data.primerAp} />
                     {
                         errors.apellidoP && errors.apellidoP.type === "required" &&
                         <Form.Text className="text-danger">
@@ -56,7 +73,7 @@ const CuentaForm = () => {
                     <input ref={register({
                         required: true,
                         maxLength: 30,
-                    })} name="apellidoM" className="form-control" id="exampleInputMat" placeholder="Apellido Materno" defaultValue="Villa" />
+                    })} name="apellidoM" className="form-control" id="exampleInputMat" placeholder="Apellido Materno" defaultValue={data.segundoAp} />
                     {
                         errors.apellidoM && errors.apellidoM.type === "required" &&
                         <Form.Text className="text-danger">
@@ -73,7 +90,7 @@ const CuentaForm = () => {
                     <label htmlFor="exampleInputRFC">Delegación</label>
                     <Form.Group>
                         <Form.Control as="select" name="estado" ref={register({ required: true })}>
-                            <option value="Iztacalco">Iztacalco</option>
+                            <option value={data.delegacion}>{data.delegacion}</option>
                             <option>Álvaro Obregón</option>
                             <option>Azcapotzalco</option>
                             <option>Benito Juárez</option>
