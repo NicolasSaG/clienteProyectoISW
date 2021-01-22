@@ -5,7 +5,7 @@ import axios from "axios";
 import { SERVER_NAME } from "./../../config/constants";
 import Swal from "sweetalert2";
 
-const RegistroRepresentanteAlcaldia = () => {
+const RegistroAdministrado = () => {
   const { handleSubmit, register, errors } = useForm();
 
   const onSubmit = (values) => {
