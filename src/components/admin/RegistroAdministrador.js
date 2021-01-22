@@ -14,7 +14,6 @@ const RegistroAdministrador = () => {
     //   .post(`${SERVER_NAME}/registro`, {
     //     nombre: values.nombre,
     //     password: values.password,
-
     //     tipodeusuario: "admin",
     //   })
     //   .then((response) => {

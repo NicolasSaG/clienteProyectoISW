@@ -2,9 +2,14 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Jumbotron, Col, Form, Row, Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
+<<<<<<< HEAD
 import axios from 'axios';
 import { SERVER_NAME } from './../../../config/constants';
 import Swal from 'sweetalert2';
+=======
+import axios from "axios";
+import { SERVER_NAME } from "./../../../config/constants";
+>>>>>>> 55e180a9248ae8d29f7639628779e8dfa651c28f
 
 function Servicio() {
   const { id } = useParams();
@@ -305,6 +310,7 @@ function Servicio() {
     if (watchTipoActividad === "derribo") {
       delete values.actividadTipoPoda;
     }
+<<<<<<< HEAD
     axios.post(`${SERVER_NAME}/registrarServicio`, {
       arbolId: id,
       actividad: values.actividad,
@@ -325,6 +331,28 @@ function Servicio() {
       }
 
     })
+=======
+
+    console.log(values);
+    axios
+      .post(`${SERVER_NAME}/registrarServicio`, {
+        idArbol: id,
+        actividad: values.actividad,
+        actividadTipoArbol: values.actividadTipoArbol,
+        actividadTipoPoda: values.actividadTipoPoda,
+        actividadCausa: values.actividadCausa,
+        actividadDescripcion: values.actividadDescripcion,
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 200) {
+          if (!response.data.success) {
+          } else {
+            window.location.href = "/";
+          }
+        }
+      });
+>>>>>>> 55e180a9248ae8d29f7639628779e8dfa651c28f
   };
 
   return (
