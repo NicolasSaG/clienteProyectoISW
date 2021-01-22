@@ -5,7 +5,7 @@ import axios from "axios";
 import { SERVER_NAME } from "./../../config/constants";
 import Swal from "sweetalert2";
 
-const RegistroAdministrado = () => {
+const RegistroAdministrador = () => {
   const { handleSubmit, register, errors } = useForm();
 
   const onSubmit = (values) => {
@@ -14,6 +14,7 @@ const RegistroAdministrado = () => {
     //   .post(`${SERVER_NAME}/registro`, {
     //     nombre: values.nombre,
     //     password: values.password,
+
     //     tipodeusuario: "admin",
     //   })
     //   .then((response) => {
