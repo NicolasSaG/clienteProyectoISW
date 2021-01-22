@@ -111,7 +111,9 @@ function Servicio() {
               <Form.Control
                 as='textarea'
                 name='actividadDescripcion'
-                ref={register}
+                ref={register({
+                  required: false,
+                })}
               />
             </Form.Group>
           </Col>
@@ -296,13 +298,13 @@ function Servicio() {
   }
 
   const onSubmit = (values) => {
+    console.log(values);
     if (watchTipoActividad === "transplante") {
       delete values.actividadTipoPoda;
     }
     if (watchTipoActividad === "derribo") {
       delete values.actividadTipoPoda;
     }
-
     console.log(values);
     axios
       .post(`${SERVER_NAME}/registrarServicio`, {
@@ -319,7 +321,7 @@ function Servicio() {
         if (response.status === 200) {
           if (!response.data.success) {
           } else {
-            window.location.href = "/";
+            window.location.href = "/mapa";
           }
         }
       });
