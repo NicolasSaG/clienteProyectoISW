@@ -2,6 +2,8 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Jumbotron, Col, Form, Row, Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
+import axios from "axios";
+import { SERVER_NAME } from "./../../../config/constants";
 
 function Servicio() {
   const { id } = useParams();
@@ -299,7 +301,26 @@ function Servicio() {
     if (watchTipoActividad === "derribo") {
       delete values.actividadTipoPoda;
     }
+
     console.log(values);
+    axios
+      .post(`${SERVER_NAME}/registrarServicio`, {
+        idArbol: id,
+        actividad: values.actividad,
+        actividadTipoArbol: values.actividadTipoArbol,
+        actividadTipoPoda: values.actividadTipoPoda,
+        actividadCausa: values.actividadCausa,
+        actividadDescripcion: values.actividadDescripcion,
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 200) {
+          if (!response.data.success) {
+          } else {
+            window.location.href = "/";
+          }
+        }
+      });
   };
 
   return (
