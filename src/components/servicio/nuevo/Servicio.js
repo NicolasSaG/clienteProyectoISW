@@ -4,6 +4,7 @@ import { Jumbotron, Col, Form, Row, Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { SERVER_NAME } from "./../../../config/constants";
+import Cookies from "js-cookie";
 
 function Servicio() {
   const { id } = useParams();
@@ -311,6 +312,7 @@ function Servicio() {
         actividadTipoPoda: values.actividadTipoPoda,
         actividadCausa: values.actividadCausa,
         actividadDescripcion: values.actividadDescripcion,
+        correo: Cookies.get("correo"),
       })
       .then((response) => {
         console.log(response);
