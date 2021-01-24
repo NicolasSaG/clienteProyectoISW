@@ -2,7 +2,8 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Col, Form, Row, Button } from "react-bootstrap";
 import MapaRegistroArbol from "./MapaRegistroArbol";
-
+import axios from "axios";
+import { SERVER_NAME } from "./../../config/constants";
 //mapa, al dar click en el mapa obtenemos coords, direccion
 //diametro, altura, estado del arbol mal, neutro bien
 
@@ -13,6 +14,29 @@ const RegistroArbol = () => {
   const onSubmit = (values) => {
     // values es un objeto que posee todos los valores del formulario que tenga un 'name' asociado
     console.log(values);
+    let data = {
+      especie: values.especie,
+      area: values.area,
+      sitio: values.sitio,
+      domicilio: values.direccion,
+      fech_ini: Date.now(),
+      altura: values.altura,
+      diametro: values.diametro,
+      coordenadas: {
+        latitud: values.coordLat,
+        longitud: values.coordLg,
+      },
+    };
+    console.log(data);
+    axios.post(`${SERVER_NAME}/insertArbol`, data).then((response) => {
+      console.log(response);
+      if (response.status === 200) {
+        if (!response.data.success) {
+        } else {
+          window.location.href = "/";
+        }
+      }
+    });
   };
 
   const getChildData = (data) => {
@@ -61,6 +85,66 @@ const RegistroArbol = () => {
               {errors.coordLg && errors.coordLg.type === "required" && (
                 <Form.Text className='text-danger'>
                   No se ha seleccionado un árbol en el mapa
+                </Form.Text>
+              )}
+            </Form.Group>
+          </Col>
+        </Row>
+
+        <Row className='justify-content-md-center'>
+          <Col sm lg='6'>
+            <Form.Group controlId='formBasicEspecie'>
+              <Form.Control
+                name='especie'
+                ref={register({
+                  required: true,
+                })}
+                type='text'
+                placeholder='especie'
+              />
+              {errors.especie && errors.especie.type === "required" && (
+                <Form.Text className='text-danger'>
+                  No se ingresó una especie
+                </Form.Text>
+              )}
+            </Form.Group>
+          </Col>
+        </Row>
+
+        <Row className='justify-content-md-center'>
+          <Col sm lg='6'>
+            <Form.Group controlId='formBasicArea'>
+              <Form.Control
+                name='area'
+                ref={register({
+                  required: true,
+                })}
+                type='text'
+                placeholder='area m^2'
+              />
+              {errors.area && errors.area.type === "required" && (
+                <Form.Text className='text-danger'>
+                  No se ingresó el area que abarca el árbol
+                </Form.Text>
+              )}
+            </Form.Group>
+          </Col>
+        </Row>
+
+        <Row className='justify-content-md-center'>
+          <Col sm lg='6'>
+            <Form.Group controlId='formBasicSitio'>
+              <Form.Control
+                name='sitio'
+                ref={register({
+                  required: true,
+                })}
+                type='text'
+                placeholder='sitio'
+              />
+              {errors.sitio && errors.sitio.type === "required" && (
+                <Form.Text className='text-danger'>
+                  No se ingresó el sitio donde está el árbol
                 </Form.Text>
               )}
             </Form.Group>
