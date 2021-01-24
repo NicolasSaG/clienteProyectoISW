@@ -2,13 +2,8 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Col, Form, Row, Button } from "react-bootstrap";
 import MapaRegistroArbol from "./MapaRegistroArbol";
-<<<<<<< HEAD
-import { SERVER_NAME } from "./../../config/constants";
-import axios from "axios";
-=======
 import axios from "axios";
 import { SERVER_NAME } from "./../../config/constants";
->>>>>>> 95511f0407098b432ad68e99dabb046061d2579e
 //mapa, al dar click en el mapa obtenemos coords, direccion
 //diametro, altura, estado del arbol mal, neutro bien
 
@@ -19,49 +14,8 @@ const RegistroArbol = () => {
   const onSubmit = (values) => {
     // values es un objeto que posee todos los valores del formulario que tenga un 'name' asociado
     console.log(values);
-<<<<<<< HEAD
-    // let data = {
-    //   especies: values.especie, // Especie del arbol
-    //   area: values.area, // Area del area y si es un arbol la dejaremos en 3 m2
-    //   sitio: values.sitio, // Sitio en donde se encuentra el arbol
-    //   tipo_sue: values.tipoSuelo, // Tipo de suelo del arbol
-    //   domicilio: values.domicilio, // Ubicacion del arbol
-    //   fech_inic: Date.now(), // Fecha de registro
-    //   altura: values.altura,
-    //   diametro: values.diametro,
-    //   coordenadas: { // Cooredenadas del arbol
-    //     latitud: values.latitud,
-    //     longitud: values.longitud
-    //   }
-    // }
-    console.log("SENDING")
-    axios
-      .post(`${SERVER_NAME}/insertArbol`,  {
-        especies: "Especie Prueba", // Especie del arbol
-        area: "area prueba", // Area del area y si es un arbol la dejaremos en 3 m2
-        sitio: "sitio prueba", // Sitio en donde se encuentra el arbol
-        tipo_sue: "tipo prueba", // Tipo de suelo del arbol
-        domicilio: "fecha prueba", // Ubicacion del arbol
-        fech_inic: Date.now(), // Fecha de registro
-        altura: "Altura prueba",
-        diametro: "Diametro preuba",
-        coordenadas: { // Cooredenadas del arbol
-          latitud: 99.34343,
-          longitud: 13.5555
-        }
-      })
-      .then((response) => {
-        console.log(response);
-        if (response.status === 200) {
-          if (!response.data.success) {
-          } else {
-            window.location.href = "/mapa";
-          }
-        }
-      });
-=======
     let data = {
-      especie: values.especie,
+      especies: values.especie,
       area: values.area,
       sitio: values.sitio,
       domicilio: values.direccion,
@@ -83,7 +37,6 @@ const RegistroArbol = () => {
         }
       }
     });
->>>>>>> 95511f0407098b432ad68e99dabb046061d2579e
   };
 
   const getChildData = (data) => {

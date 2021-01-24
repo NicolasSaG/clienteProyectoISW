@@ -12,6 +12,7 @@ const MapaArbolado = () => {
 
     useEffect(() => {
         axios.get(`${SERVER_NAME}/getArboles`).then((response) => {
+            console.log(response)
             setArboles(response.data)
             setLoading(false);
         })

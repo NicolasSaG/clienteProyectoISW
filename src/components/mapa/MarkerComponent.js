@@ -9,7 +9,7 @@ const MarkerComponent = ({ position, icon, id }) => {
         setShowInfo(false);
     }
     return (
-        <Marker key={`marker-${id}`} position={position} clo onClick={() => { setShowInfo(true) }} icon={icon}>
+        <Marker key={`marker-${id}`} position={position} onClick={() => { setShowInfo(true) }} icon={icon}>
             {showInfo ? <InfoWindowsComponent id={id} position={position} onClose={closeInfoWindow} /> : ""}
         </Marker>
 
