@@ -10,31 +10,33 @@ const RegistroAdministrador = () => {
 
   const onSubmit = (values) => {
     console.log(values);
-    // axios
-    //   .post(`${SERVER_NAME}/registro`, {
-    //     nombre: values.nombre,
-    //     password: values.password,
-    //     tipodeusuario: "admin",
-    //   })
-    //   .then((response) => {
-    //     console.log(response);
-    //     if (response.status === 200) {
-    //       if (response.data.errors.length === 0) {
-    //         Swal.fire({
-    //           icon: "success",
-    //           title: "Se ha registrado el administrador",
-    //           confirmButtonText: `OK`,
-    //         }).then((result) => {
-    //           /* Read more about isConfirmed, isDenied below */
-    //           if (result.isConfirmed) {
-    //             window.location.href = "/";
-    //           }
-    //         });
-    //       } else {
-    //         Swal.fire("Error al Registrar", "El Usuario Ya Existe", "error");
-    //       }
-    //     }
-    //   });
+    axios
+      .post(`${SERVER_NAME}/registroAdministrador`, {
+        nombre: values.nombre,
+        password: values.password,
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 200) {
+          if (response.data.errors.length === 0) {
+            Swal.fire({
+              icon: "success",
+              title: "Se ha registrado el administrador",
+              confirmButtonText: `OK`,
+            }).then((result) => {
+              if (result.isConfirmed) {
+                window.location.href = "/";
+              }
+            });
+          } else {
+            Swal.fire(
+              "Error al Registrar",
+              "El administrador Ya Existe",
+              "error"
+            );
+          }
+        }
+      });
   };
 
   return (

@@ -4,6 +4,10 @@ import { Jumbotron, Col, Form, Row, Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { SERVER_NAME } from "./../../../config/constants";
+<<<<<<< HEAD
+=======
+import Cookies from "js-cookie";
+>>>>>>> 858d08a913b244a555b1f251d82cf507c4a13e8a
 
 function Servicio() {
   const { id } = useParams();
@@ -111,7 +115,7 @@ function Servicio() {
                 as='textarea'
                 name='actividadDescripcion'
                 ref={register({
-                  required: false
+                  required: false,
                 })}
               />
             </Form.Group>
@@ -304,7 +308,10 @@ function Servicio() {
     if (watchTipoActividad === "derribo") {
       delete values.actividadTipoPoda;
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 858d08a913b244a555b1f251d82cf507c4a13e8a
     console.log(values);
     axios
       .post(`${SERVER_NAME}/registrarServicio`, {
@@ -314,13 +321,15 @@ function Servicio() {
         actividadTipoPoda: values.actividadTipoPoda,
         actividadCausa: values.actividadCausa,
         actividadDescripcion: values.actividadDescripcion,
+        estado: "Procesando reporte",
+        correo: Cookies.get("correo"),
       })
       .then((response) => {
         console.log(response);
         if (response.status === 200) {
           if (!response.data.success) {
           } else {
-            window.location.href = "/";
+            window.location.href = "/mapa";
           }
         }
       });
