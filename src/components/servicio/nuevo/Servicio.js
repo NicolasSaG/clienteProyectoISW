@@ -2,14 +2,8 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Jumbotron, Col, Form, Row, Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-<<<<<<< HEAD
-import axios from 'axios';
-import { SERVER_NAME } from './../../../config/constants';
-import Swal from 'sweetalert2';
-=======
 import axios from "axios";
 import { SERVER_NAME } from "./../../../config/constants";
->>>>>>> 55e180a9248ae8d29f7639628779e8dfa651c28f
 
 function Servicio() {
   const { id } = useParams();
@@ -310,28 +304,6 @@ function Servicio() {
     if (watchTipoActividad === "derribo") {
       delete values.actividadTipoPoda;
     }
-<<<<<<< HEAD
-    axios.post(`${SERVER_NAME}/registrarServicio`, {
-      arbolId: id,
-      actividad: values.actividad,
-      actividadCausa: values.actividadCausa,
-      actividadDescripcion: values.actividadDescripcion,
-      actividadTipoArbol: values.actividadTipoArbol,
-      actividadTipoPoda: values.actividadTipoPoda,
-    }).then((response) => {
-      console.log(response)
-      if (response.status === 200) {
-        if (response.data.errors.length === 0) {
-          Swal.fire('Bienvenido', 'Usuario ha Sido Registrado Con Éxito.', 'success')
-          window.location.href = "/";
-        } else {
-          Swal.fire('Error al Registrar', 'El Usuario Ya Existe', 'error')
-
-        }
-      }
-
-    })
-=======
 
     console.log(values);
     axios
@@ -352,7 +324,6 @@ function Servicio() {
           }
         }
       });
->>>>>>> 55e180a9248ae8d29f7639628779e8dfa651c28f
   };
 
   return (

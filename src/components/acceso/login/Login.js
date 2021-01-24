@@ -25,7 +25,7 @@ const Login = () => {
                     Cookies.set('session', true, { expires: 1 });
                     Cookies.set('correo', values.correo, { expires: 1 });
                     Cookies.set('user', response.data.msg, { expires: 1 });
-                    window.location.href = "/";
+                    // window.location.href = "/";
                 }
             }
         })
