@@ -314,6 +314,7 @@ function Servicio() {
         actividadTipoPoda: values.actividadTipoPoda,
         actividadCausa: values.actividadCausa,
         actividadDescripcion: values.actividadDescripcion,
+        estado: "Procesando reporte",
         correo: Cookies.get("correo"),
       })
       .then((response) => {
