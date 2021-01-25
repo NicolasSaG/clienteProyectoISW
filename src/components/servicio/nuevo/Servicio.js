@@ -7,7 +7,7 @@ import { SERVER_NAME } from "./../../../config/constants";
 import Cookies from "js-cookie";
 
 function Servicio() {
-  const { id } = useParams();
+  const { id, alcaldia } = useParams();
   const { handleSubmit, register, watch } = useForm();
   const watchTipoActividad = watch("actividad");
 
@@ -308,6 +308,7 @@ function Servicio() {
     axios
       .post(`${SERVER_NAME}/registrarServicio`, {
         idArbol: id,
+        alcaldia: alcaldia,
         actividad: values.actividad,
         actividadTipoArbol: values.actividadTipoArbol,
         actividadTipoPoda: values.actividadTipoPoda,
