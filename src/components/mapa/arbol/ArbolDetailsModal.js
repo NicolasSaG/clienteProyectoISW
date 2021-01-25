@@ -68,6 +68,7 @@ const ArbolDetails = ({ arbol, onHide }) => {
         ) : (
           ""
         )}
+        {console.log(arbol.fields)}
         <Button onClick={onHide}>Cerrar</Button>
       </Modal.Footer>
     </Modal>,

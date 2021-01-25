@@ -46,7 +46,7 @@ function App() {
             />
             <Route
               exact
-              path='/solicitudServicio/:id, :alcaldia'
+              path='/solicitudServicio/:id,:alcaldia'
               component={SolicitudServicio}
             />
             <Route exact path='/miCuenta' component={ConfigCuentaUsuario} />
