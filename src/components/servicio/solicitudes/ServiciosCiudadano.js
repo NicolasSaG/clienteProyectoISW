@@ -5,40 +5,27 @@ import Cookies from "js-cookie";
 import { SERVER_NAME } from "./../../../config/constants";
 import axios from "axios";
 
-const Servicios = () => {
+const ServiciosCiudadano = () => {
   const [servicios, setServicios] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (Cookies.get("tipo") === "jefe") {
-      axios
-        .get(`${SERVER_NAME}/getServicioByAlcaldia`, {
-          params: {
-            alcaldia: Cookies.get("correo"),
-          },
-        })
-        .then((response) => {
-          setServicios(response.data);
-          setLoading(false);
-        });
-    } else {
-      axios
-        .get(`${SERVER_NAME}/getServicioByIdUser`, {
-          params: {
-            idUser: Cookies.get("correo"),
-          },
-        })
-        .then((response) => {
-          setServicios(response.data);
-          setLoading(false);
-        });
-    }
+    axios
+      .get(`${SERVER_NAME}/getServicioByIdUser`, {
+        params: {
+          alcaldia: Cookies.get("correo"),
+        },
+      })
+      .then((response) => {
+        setServicios(response.data);
+        setLoading(false);
+      });
   }, []);
 
   return (
     <div>
       <Jumbotron className='bg-primary text-white'>
-        <h1>Solicitudes de servicios</h1>
+        <h1>Mis solicitudes de servicio</h1>
       </Jumbotron>
       <Container>
         <Row>
@@ -54,4 +41,4 @@ const Servicios = () => {
   );
 };
 
-export default Servicios;
+export default ServiciosCiudadano;

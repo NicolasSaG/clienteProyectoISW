@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { Modal, Row, Col, Image, Button } from "react-bootstrap";
 import axios from "axios";
 import { SERVER_NAME } from "./../../../config/constants";
+import Cookies from "js-cookie";
 
 const ServicioDetails = ({ servicio, onHide }) => {
   console.log(servicio);
@@ -28,34 +29,36 @@ const ServicioDetails = ({ servicio, onHide }) => {
   };
 
   const buttonActualizarEstado = () => {
-    if (servicio.estado === "Procesando reporte") {
-      return (
-        <div>
-          <Button
-            variant='warning'
-            onClick={() => {
-              actulizarEstadoDeServicio();
-            }}
-          >
-            <i className='fas fa-exclamation-circle fa-lg' /> &nbsp; Marcar como
-            Realizandose
-          </Button>
-        </div>
-      );
-    } else if (servicio.estado === "Realizandose") {
-      return (
-        <div>
-          <Button
-            variant='warning'
-            onClick={() => {
-              actulizarEstadoDeServicio();
-            }}
-          >
-            <i className='fas fa-exclamation-circle fa-lg' /> &nbsp; Marcar como
-            Terminado
-          </Button>
-        </div>
-      );
+    if (Cookies.get("tipo") === "jefe") {
+      if (servicio.estado === "Procesando reporte") {
+        return (
+          <div>
+            <Button
+              variant='warning'
+              onClick={() => {
+                actulizarEstadoDeServicio();
+              }}
+            >
+              <i className='fas fa-exclamation-circle fa-lg' /> &nbsp; Marcar
+              como Realizandose
+            </Button>
+          </div>
+        );
+      } else if (servicio.estado === "Realizandose") {
+        return (
+          <div>
+            <Button
+              variant='warning'
+              onClick={() => {
+                actulizarEstadoDeServicio();
+              }}
+            >
+              <i className='fas fa-exclamation-circle fa-lg' /> &nbsp; Marcar
+              como Terminado
+            </Button>
+          </div>
+        );
+      }
     }
 
     return <div></div>;
