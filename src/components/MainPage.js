@@ -31,7 +31,7 @@ const MainPage = () => {
                 <Button
                   size='lg'
                   onClick={() => history.push("/mapa")}
-                  variant='info'
+                  variant='secondary'
                 >
                   Mapa
                 </Button>{" "}

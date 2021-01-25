@@ -22,10 +22,11 @@ const Login = () => {
                     setErrorLogin(true);
                 } else {
                     setErrorLogin(false);
-                    Cookies.set('session', true, { expires: 1 });
-                    Cookies.set('correo', values.correo, { expires: 1 });
-                    Cookies.set('user', response.data.msg, { expires: 1 });
-                    // window.location.href = "/";
+                    Cookies.set('session', true, { expires: 10000 });
+                    Cookies.set('correo', values.correo, { expires: 10000 });
+                    Cookies.set('user', response.data.msg, { expires: 10000 });
+                    Cookies.set('tipo', response.data.tipo, { expires: 10000 });
+                    window.location.href = "/";
                 }
             }
         })

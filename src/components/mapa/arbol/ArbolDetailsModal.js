@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Modal, Button, Row, Col, Image } from 'react-bootstrap';
+import Cookies from 'js-cookie';
 
 const ArbolDetails = ({ arbol, onHide }) => {
 
@@ -37,9 +38,9 @@ const ArbolDetails = ({ arbol, onHide }) => {
 
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="warning" onClick={() => { window.location.href = `/solicitudServicio/${arbol._id}` }}>
+                {(Cookies.get("tipo") !== "admin" && Cookies.get("tipo") !== "jefe") ? <Button variant="warning" onClick={() => { Cookies.get("tipo") === "ciudadano" ? window.location.href = `/solicitudServicio/${arbol._id}` : window.location.href = "/login" }}>
                     <i className="fas fa-exclamation-circle fa-lg" /> &nbsp;
-                    Hacer una solicitud del árbol</Button>
+                    Hacer una solicitud del árbol</Button> : ""}
                 <Button onClick={onHide}>Cerrar</Button>
             </Modal.Footer>
         </Modal>, document.getElementById('modal')

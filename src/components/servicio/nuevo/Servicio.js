@@ -8,7 +8,7 @@ import Cookies from "js-cookie";
 
 function Servicio() {
   const { id } = useParams();
-  const { handleSubmit, register, setValue, errors, watch } = useForm();
+  const { handleSubmit, register, watch } = useForm();
   const watchTipoActividad = watch("actividad");
 
   const inputsPoda = () => {
@@ -294,7 +294,6 @@ function Servicio() {
     } else {
       return inputsPoda();
     }
-    return;
   }
 
   const onSubmit = (values) => {

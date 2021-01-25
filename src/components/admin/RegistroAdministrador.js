@@ -12,6 +12,7 @@ const RegistroAdministrador = () => {
     console.log(values);
     axios
       .post(`${SERVER_NAME}/registroAdministrador`, {
+        email: values.email,
         nombre: values.nombre,
         password: values.password,
       })
@@ -52,6 +53,24 @@ const RegistroAdministrador = () => {
               <Form onSubmit={handleSubmit(onSubmit)}>
                 <br />
                 <Form.Group controlId='nombre'>
+                  <Form.Label>Correo electrónico</Form.Label>
+                  <Form.Control
+                    name='email'
+                    type='email'
+                    ref={register({
+                      required: true,
+                    })}
+                    placeholder='Correo electrónico'
+                    
+                  />
+                  {errors.email && errors.email.type === "required" && (
+                    <Form.Text className='text-danger'>
+                      Ingrese un correo electrónico
+                    </Form.Text>
+                  )}
+                </Form.Group>
+
+                <Form.Group controlId='nombre'>
                   <Form.Label>Nombre</Form.Label>
                   <Form.Control
                     name='nombre'
@@ -60,7 +79,7 @@ const RegistroAdministrador = () => {
                       required: true,
                       maxLength: 30,
                     })}
-                    placeholder='nombre de administrador'
+                    placeholder='Nombre de administrador'
                   />
                   {errors.nombre && errors.nombre.type === "required" && (
                     <Form.Text className='text-danger'>

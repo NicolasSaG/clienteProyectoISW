@@ -1,12 +1,14 @@
 import React, { useEffect, useState, Fragment } from 'react';
-import { Jumbotron } from 'react-bootstrap';
+import { Button, Jumbotron } from 'react-bootstrap';
 import { SERVER_NAME } from "./../../config/constants";
 import MyMapComponent from './MyMapComponent';
 import PageLoading from './../layout/PageLoading';
 import axios from 'axios';
+import Cookies from 'js-cookie';
+import { useHistory } from 'react-router-dom';
 
 const MapaArbolado = () => {
-
+    const history = useHistory();
     const [arboles, setArboles] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -18,22 +20,17 @@ const MapaArbolado = () => {
         })
     }, [])
 
-    const triangleCoords = [
-        {
-            idArea: 1,
-            coordinates: [{ lat: 19.425063924244135, lng: -99.15000288285455 },
-            { lat: 19.433967626858944, lng: -99.13626997257076 },
-            { lat: 19.42303354379363, lng: -99.16317140613423 }]
-        },
-        {
-            idArea: 2,
-            coordinates: [{ lat: 19.42505392744135, lng: -99.15000288283455 },
-            { lat: 19.436967626858344, lng: -99.13626997357176 },
-            { lat: 19.47303354379373, lng: -99.16317140614323 }]
-        }
-    ];
+    const triangleCoords = [];
 
-    if (loading) return (<PageLoading/>); else {
+    const registrarArbol = () =>{
+        if(Cookies.get('tipo')==="ciudadano"){
+             history.push("/registroArbol");
+        } else{
+            history.push("/login");
+        }
+    }
+
+    if (loading) return (<PageLoading />); else {
         return (
             <Fragment>
                 <Jumbotron className="bg-primary text-white">
@@ -43,6 +40,15 @@ const MapaArbolado = () => {
                 </p>
                 </Jumbotron>
                 <MyMapComponent items={arboles} areas={triangleCoords} center={{ latitude: 19.42303354379363, longitude: -99.1631714061342 }} />
+                {Cookies.get("tipo")!=="admin" && Cookies.get("tipo")!=="admin"?<Jumbotron>
+                    <h1>¿No ves un árbol en el mapa?</h1>
+                    <p>
+                        Ayúdanos a tener un mejor registro de todos los árboles público de la Ciudad de México
+                    </p>
+                    <p>
+                        <Button variant="primary" onClick={()=>{registrarArbol()}}>Registrar árbol</Button>
+                    </p>
+                </Jumbotron>:""}
             </Fragment>
         );
     }
