@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react";
 import { Col, Row, Image, Button } from "react-bootstrap";
 import ServicioDetails from "./ServicioDetails";
 
-const ServiciosList = ({ alcaldia }) => {
+const ServiciosList = ({ servicios }) => {
   const [servicioSelected, setServicioSelected] = useState();
   const [showModal, setShowModal] = useState(false);
 
@@ -52,8 +52,8 @@ const ServiciosList = ({ alcaldia }) => {
 
   return (
     <div>
-      {solicitudes
-        ? solicitudes.map((data, index) => {
+      {servicios
+        ? servicios.map((data, index) => {
             return (
               <Fragment key={index}>
                 <Row
@@ -83,9 +83,7 @@ const ServiciosList = ({ alcaldia }) => {
                   <Col sm={10}>
                     <div style={{ paddingLeft: "10px" }}>
                       <br />
-                      <strong>
-                        {data.usuario.nombre} {data.usuario.apellidoP}{" "}
-                      </strong>
+                      <strong>{data.correo} </strong>
                       <small></small>
                       <br />
                       {data.pregunta}

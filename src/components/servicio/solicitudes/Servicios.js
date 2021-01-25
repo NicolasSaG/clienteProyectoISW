@@ -6,18 +6,18 @@ import { SERVER_NAME } from "./../../../config/constants";
 import axios from "axios";
 
 const Servicios = () => {
-  const [alcaldia, setAlcaldia] = useState([]);
+  const [servicios, setServicios] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios
-      .get(`${SERVER_NAME}/usuario`, {
+      .get(`${SERVER_NAME}/getServicioByAlcaldia`, {
         params: {
-          email: Cookies.get("correo"),
+          alcaldia: Cookies.get("correo"),
         },
       })
       .then((response) => {
-        setAlcaldia(response.data);
+        setServicios(response.data);
         setLoading(false);
       });
   }, []);
@@ -32,7 +32,7 @@ const Servicios = () => {
           <Col sm={1} />
           <Col sm={10}>
             <h2></h2>
-            <ServiciosList alcaldia={alcaldia} />
+            <ServiciosList servicios={servicios} />
           </Col>
           <Col sm={1} />
         </Row>
