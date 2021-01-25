@@ -320,10 +320,7 @@ function Servicio() {
       .then((response) => {
         console.log(response);
         if (response.status === 200) {
-          if (!response.data.success) {
-          } else {
-            window.location.href = "/mapa";
-          }
+          window.location.href = "/mapa";
         }
       });
   };

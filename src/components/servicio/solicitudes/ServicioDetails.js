@@ -1,9 +1,65 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Modal, Row, Col, Image, Button } from "react-bootstrap";
+import axios from "axios";
+import { SERVER_NAME } from "./../../../config/constants";
 
 const ServicioDetails = ({ servicio, onHide }) => {
   console.log(servicio);
+
+  const actulizarEstadoDeServicio = () => {
+    let nuevoEstado = "";
+    if (servicio.estado === "Procesando reporte") {
+      nuevoEstado = "Realizandose";
+    } else if (servicio.estado === "Realizandose") {
+      nuevoEstado = "Terminado";
+    }
+
+    const servicioActualizado = {
+      idServicio: servicio._id,
+      estado: nuevoEstado,
+    };
+    axios
+      .post(`${SERVER_NAME}/updateServicio`, servicioActualizado)
+      .then((response) => {
+        console.log(response.data);
+        window.location.href = `/solicitudesServicios`;
+      });
+  };
+
+  const buttonActualizarEstado = () => {
+    if (servicio.estado === "Procesando reporte") {
+      return (
+        <div>
+          <Button
+            variant='warning'
+            onClick={() => {
+              actulizarEstadoDeServicio();
+            }}
+          >
+            <i className='fas fa-exclamation-circle fa-lg' /> &nbsp; Marcar como
+            Realizandose
+          </Button>
+        </div>
+      );
+    } else if (servicio.estado === "Realizandose") {
+      return (
+        <div>
+          <Button
+            variant='warning'
+            onClick={() => {
+              actulizarEstadoDeServicio();
+            }}
+          >
+            <i className='fas fa-exclamation-circle fa-lg' /> &nbsp; Marcar como
+            Terminado
+          </Button>
+        </div>
+      );
+    }
+
+    return <div></div>;
+  };
   return ReactDOM.createPortal(
     <Modal
       show={true}
@@ -35,21 +91,14 @@ const ServicioDetails = ({ servicio, onHide }) => {
             <br />
             <h5>Causa: {servicio.actividadCausa}</h5>
             <br />
-            <h5>Ubicación: </h5>
-            {servicio.alcaldia}
+            <h5>Alcaldía: {servicio.alcaldia}</h5>
+            <h5>ID de servicio: {servicio._id}</h5>
           </Col>
         </Row>
       </Modal.Body>
       <Modal.Footer>
-        <Button
-          variant='warning'
-          onClick={() => {
-            window.location.href = `/solicitudServicio/${servicio._id}`;
-          }}
-        >
-          <i className='fas fa-exclamation-circle fa-lg' /> &nbsp; Marcar como
-          en proceso
-        </Button>
+        {buttonActualizarEstado()}
+
         <Button onClick={onHide}>Cerrar</Button>
       </Modal.Footer>
     </Modal>,
